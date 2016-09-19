@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object name="portal_types" meta_type="Plone Types Tool">
-  <object name="PloneRelease" meta_type="Dexterity FTI"/>
+  <object meta_type="Dexterity FTI" name="ReleaseFolder"/>
+  <object meta_type="Dexterity FTI" name="ReleaseSeries"/>
+  <object meta_type="Dexterity FTI" name="Release"/>
+  <object meta_type="Dexterity FTI" name="HotfixFolder"/>
+  <object meta_type="Dexterity FTI" name="Hotfix"/>
+  <object meta_type="Dexterity FTI" name="Vulnerability"/>
 </object>

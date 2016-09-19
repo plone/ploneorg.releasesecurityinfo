@@ -2,6 +2,6 @@
 <layers>
   <layer
       name="ploneorg.releasesecurityinfo"
-      interface="ploneorg.releasesecurityinfo.interfaces.IPloneorgReleasesecurityinfoLayer"
+      interface="ploneorg.releasesecurityinfo.interfaces.IPloneOrgReleaseSecurityInfoLayer"
       />
 </layers>

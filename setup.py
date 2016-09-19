@@ -43,6 +43,7 @@ setup(
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
+        'launchpadlib',
     ],
     extras_require={
         'test': [

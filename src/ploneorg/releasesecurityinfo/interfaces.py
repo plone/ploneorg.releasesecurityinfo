@@ -2,23 +2,47 @@
 """Module where all interfaces, events and exceptions live."""
 
 from ploneorg.releasesecurityinfo import _
+from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 
-class IPloneorgReleasesecurityinfoLayer(IDefaultBrowserLayer):
+class IPloneOrgReleaseSecurityInfoLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
-class IPloneRelease(Interface):
+class IReleaseFolder(model.Schema):
+    """
+    Schema for ReleaseFolder.
+    """
 
-    title = schema.TextLine(
-        title=_(u"Title"),
-        required=True,
-    )
 
-    description = schema.Text(
-        title=_(u"Description"),
-        required=False,
-    )
+class IReleaseSeries(model.Schema):
+    """
+    Schema for ReleaseSeries.
+    """
+
+
+class IRelease(model.Schema):
+    """
+    Schema for Release.
+    """
+
+
+class IHotfixFolder(model.Schema):
+    """
+    Schema for HotfixFolder.
+    """
+
+
+class IHotfix(model.Schema):
+    """
+    Schema for Hotfix.
+    """
+
+
+class IVulnerability(model.Schema):
+    """
+    Schema for Vulnerability.
+    """

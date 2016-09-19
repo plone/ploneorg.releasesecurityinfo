@@ -33,4 +33,9 @@
       factory=".setuphandlers.HiddenProfiles"
       name="ploneorg.releasesecurityinfo-hiddenprofiles" />
 
+  <utility
+      name="ploneorg.releasesecurityinfo.state_vocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="ploneorg.releasesecurityinfo.state_vocabulary" />
+
 </configure>
