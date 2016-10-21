@@ -20,7 +20,7 @@ log = logging.getLogger("ploneorg.releasesecurityinfo")
 
 
 def update_releasefolder(context):
-    import ipdb; ipdb.set_trace()
+    #import ipdb; ipdb.set_trace()
     try:
         launchpad = Launchpad.login_anonymously('plone release crawler',
                                                 'production',
