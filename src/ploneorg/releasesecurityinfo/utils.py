@@ -56,12 +56,12 @@ def update_releasefolder(context):
             if series_obj is not None:
                 series_obj.title = name
                 series_obj.description = serie.summary
-                series_obj.status = series.status
-                series_obj.is_development_focus = serie.is_development_focus
-                serie_obj.branch = serie.branch
+                series_obj.status = serie.status
+                #series_obj.is_development_focus = serie.is_development_focus
+                series_obj.branch = serie.branch
                 series_obj.url_pattern = serie.release_finder_url_pattern
 
-                serie_obj.release_manager = serie.owner.display_name
+                series_obj.release_manager = serie.owner.display_name
 
                 release_obj = None
                 for elem in serie.all_milestones:
