@@ -6,7 +6,7 @@
        xmlns:users="http://namespaces.plone.org/supermodel/users"
        xmlns:lingua="http://namespaces.plone.org/supermodel/lingua"
        xmlns:i18n="http://namespaces.zope.org/i18n"
-       i18n_domain="ploneorg.addonlisting">
+       i18n_domain="ploneorg.releasesecurityinfo">
 
     <schema>
 
