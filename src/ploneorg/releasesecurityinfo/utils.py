@@ -11,7 +11,7 @@ from httplib2 import ServerNotFoundError
 
 import logging
 import requests
-import simplejson as json
+import json
 import urllib
 import xmlrpclib
 

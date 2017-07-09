@@ -44,6 +44,8 @@ setup(
         'z3c.jbot',
         'plone.app.dexterity',
         'launchpadlib',
+        'simplejson',
+        'requests',
     ],
     extras_require={
         'test': [
