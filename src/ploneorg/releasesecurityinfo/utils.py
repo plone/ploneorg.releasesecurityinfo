@@ -1,26 +1,18 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
-from datetime import date
-from datetime import datetime
-from distutils.version import LooseVersion
-from pkg_resources import parse_version
-from plone import api
-from launchpadlib.launchpad import Launchpad
 from httplib2 import ServerNotFoundError
+from launchpadlib.launchpad import Launchpad
+# from pkg_resources import parse_version
+from plone import api
 
 import logging
-import requests
-import json
-import urllib
-import xmlrpclib
 
 
 log = logging.getLogger("ploneorg.releasesecurityinfo")
 
 
 def update_releasefolder(context):
-    #import ipdb; ipdb.set_trace()
     try:
         launchpad = Launchpad.login_anonymously('plone release crawler',
                                                 'production',
@@ -31,12 +23,12 @@ def update_releasefolder(context):
         existing_series = api.content.find(context=context,
                                            depth=1,
                                            portal_type='ReleaseSeries')
-        existing_series = {elem.id: elem.getObject() for elem in existing_series}
+        existing_series = {elem.id: elem.getObject() for elem in existing_series}  # NOQA: E501
 
         existing_releases = api.content.find(context=context,
                                              depth=2,
                                              portal_type='Release')
-        existing_releases = {elem.id: elem.getObject() for elem in existing_releases}
+        existing_releases = {elem.id: elem.getObject() for elem in existing_releases}  # NOQA: E501
 
         for serie in series:
             name = serie.name
@@ -57,7 +49,7 @@ def update_releasefolder(context):
                 series_obj.title = name
                 series_obj.description = serie.summary
                 series_obj.status = serie.status
-                #series_obj.is_development_focus = serie.is_development_focus
+                # series_obj.is_development_focus = serie.is_development_focus
                 series_obj.branch = serie.branch
                 series_obj.url_pattern = serie.release_finder_url_pattern
 
@@ -72,9 +64,9 @@ def update_releasefolder(context):
                                                          id=elem.name,
                                                          title=elem.name)
                     else:
-                        path = context.absolute_url() + '/' + name + '/' + elem.name
+                        path = context.absolute_url() + '/' + name + '/' + elem.name  # NOQA: E501
                         release_obj = api.content.get(path=path)
-                        log.info('Update Release Information for %s', elem.name)
+                        log.info('Update Release Information for %s', elem.name)  # NOQA: E501
 
                     if release_obj is not None:
                         release_obj.code_name = elem.code_name
@@ -85,7 +77,7 @@ def update_releasefolder(context):
 
                         for f in release_elem.files:
                             log.info(f)
-                            link = f.self_link
+                            # link = f.self_link
 
     except ServerNotFoundError:
         log.error("Connection Error")
