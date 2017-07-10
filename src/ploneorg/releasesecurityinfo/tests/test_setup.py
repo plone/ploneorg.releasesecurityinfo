@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from ploneorg.releasesecurityinfo.testing import PLONEORG_RELEASESECURITYINFO_INTEGRATION_TESTING  # noqa
 from plone import api
+from plone.browserlayer import utils
+from ploneorg.releasesecurityinfo.interfaces import IPloneOrgReleaseSecurityInfoLayer  # NOQA: E501
+from ploneorg.releasesecurityinfo.testing import PLONEORG_RELEASESECURITYINFO_INTEGRATION_TESTING  # NOQA: E501
 
 import unittest
 
@@ -22,11 +24,12 @@ class TestSetup(unittest.TestCase):
             'ploneorg.releasesecurityinfo'))
 
     def test_browserlayer(self):
-        """Test that IPloneorgReleasesecurityinfoLayer is registered."""
+        """Test that IPloneOrgReleaseSecurityInfoLayer is registered."""
         from ploneorg.releasesecurityinfo.interfaces import (
-            IPloneorgReleasesecurityinfoLayer)
+            IPloneOrgReleaseSecurityInfoLayer)
         from plone.browserlayer import utils
-        self.assertIn(IPloneorgReleasesecurityinfoLayer, utils.registered_layers())
+        self.assertIn(IPloneOrgReleaseSecurityInfoLayer,
+                      utils.registered_layers())
 
 
 class TestUninstall(unittest.TestCase):
@@ -44,7 +47,6 @@ class TestUninstall(unittest.TestCase):
             'ploneorg.releasesecurityinfo'))
 
     def test_browserlayer_removed(self):
-        """Test that IPloneorgReleasesecurityinfoLayer is removed."""
-        from ploneorg.releasesecurityinfo.interfaces import IPloneorgReleasesecurityinfoLayer
-        from plone.browserlayer import utils
-        self.assertNotIn(IPloneorgReleasesecurityinfoLayer, utils.registered_layers())
+        """Test that IPloneOrgReleaseSecurityInfoLayer is removed."""
+        self.assertNotIn(IPloneOrgReleaseSecurityInfoLayer,
+                         utils.registered_layers())

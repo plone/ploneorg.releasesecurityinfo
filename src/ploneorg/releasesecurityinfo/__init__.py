@@ -2,11 +2,11 @@
 """Init and utils."""
 
 from zope.i18nmessageid import MessageFactory
+from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.interface import implementer
-from zope.interface import provider
+
 
 _ = MessageFactory('ploneorg.releasesecurityinfo')
 

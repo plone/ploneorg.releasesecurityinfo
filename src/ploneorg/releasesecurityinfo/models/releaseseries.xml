@@ -14,16 +14,16 @@
       <field name="title"
              type="zope.schema.TextLine"
              form:mode="z3c.form.interfaces.IAddForm:input z3c.form.interfaces.IEditForm:input">
-        <title i18n:translate="">Launchpad Project Name</title>
-        <description i18n:translate="">Name of the Launchpad Project</description>
+        <title i18n:translate="">Launchpad Series Name</title>
+        <description i18n:translate="">Name of the Launchpad Series</description>
         <required>True</required>
       </field>
 
       <field name="display_name"
              type="zope.schema.TextLine"
              form:mode="z3c.form.interfaces.IAddForm:input z3c.form.interfaces.IEditForm:input">
-        <title i18n:translate="">Launchpad Project Name</title>
-        <description i18n:translate="">Name of the Launchpad Project</description>
+        <title i18n:translate="">Launchpad Series Display Name</title>
+        <description i18n:translate="">Display Name of the Launchpad Series</description>
         <required>True</required>
       </field>
 
