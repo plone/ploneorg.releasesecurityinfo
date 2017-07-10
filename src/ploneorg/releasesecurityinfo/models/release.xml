@@ -27,21 +27,38 @@
         <required>False</required>
       </field>
 
-      <field name="active"
+      <field name="is_active"
              type="zope.schema.Bool"
              security:write_permission="cmf.ManagePortal"
              security:read_permission="zope2.View" >
         <title i18n:translate="">Active</title>
-        <description i18n:translate="">Is this Add'on blacklisted (should not show up on Listing, because it is a wrong taged core modul, a harmful add on, ...)</description>
+        <description i18n:translate="">Is an active release</description>
         <required>False</required>
         <default>False</default>
       </field>
 
-      <field name="releasedate"
+      <field name="is_active_milestone"
+             type="zope.schema.Bool"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View" >
+        <title i18n:translate="">Active</title>
+        <description i18n:translate="">Is an active Milestone</description>
+        <required>False</required>
+        <default>False</default>
+      </field>
+
+      <field name="targetdate"
              type="zope.schema.Date" >
-        <title i18n:translate="">Release Date</title>
+        <title i18n:translate="">Targeted Date</title>
         <description i18n:translate=""></description>
         <required>False</required>
+      </field>
+
+      <field name="releasedate"
+             type="zope.schema.Date" >
+        <title i18n:translate="">Released Date</title>
+        <description i18n:translate=""></description>
+        <required>True</required>
       </field>
 
       <field name="tags"
@@ -52,14 +69,43 @@
         <required>False</required>
       </field>
 
-      <field name="description"
+      <field name="summary"
              type="zope.schema.Text"
              security:write_permission="cmf.ManagePortal"
              security:read_permission="zope2.View">
-        <title i18n:translate="">Description</title>
+        <title i18n:translate="">A summary of the features and status of this milestone.</title>
         <description i18n:translate=""></description>
         <required>False</required>
       </field>
+
+      <field name="series"
+             type="zope.schema.TextLine"
+             form:mode="z3c.form.interfaces.IAddForm:input z3c.form.interfaces.IEditForm:input"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View">
+        <title i18n:translate=""></title>
+        <description i18n:translate=""></description>
+        <required>False</required>
+      </field>
+
+      <field name="release_notes"
+             type="zope.schema.Text"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View">
+        <title i18n:translate="">Release notes</title>
+        <description i18n:translate=""></description>
+        <required>False</required>
+      </field>
+
+      <field name="changelog"
+             type="zope.schema.Text"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View">
+        <title i18n:translate="">Change log</title>
+        <description i18n:translate=""></description>
+        <required>False</required>
+      </field>
+
 
     </schema>
 
