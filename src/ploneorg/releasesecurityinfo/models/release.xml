@@ -58,16 +58,6 @@
         <required>False</required>
       </field>
 
-      <field name="series"
-             type="zope.schema.TextLine"
-             form:mode="z3c.form.interfaces.IAddForm:input z3c.form.interfaces.IEditForm:input"
-             security:write_permission="cmf.ManagePortal"
-             security:read_permission="zope2.View">
-        <title i18n:translate="">Series corresponding to the release</title>
-        <description i18n:translate=""></description>
-        <required>False</required>
-      </field>
-
       <field name="release_notes"
              type="zope.schema.Text"
              security:write_permission="cmf.ManagePortal"
