@@ -12,6 +12,13 @@
 
       <!-- field definitions -->
 
+      <field name="hotfix_folder_name"
+             type="zope.schema.TextLine"
+             form:mode="z3c.form.interfaces.IAddForm:input z3c.form.interfaces.IEditForm:input">
+        <title i18n:translate="">Hotfix folder Name</title>
+        <description i18n:translate="">Name of the Hotfix folder</description>
+        <required>True</required>
+      </field>
 
     </schema>
 

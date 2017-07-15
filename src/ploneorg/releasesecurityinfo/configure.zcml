@@ -38,4 +38,27 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       component="ploneorg.releasesecurityinfo.state_vocabulary" />
 
+  <utility
+      name="ploneorg.releasesecurityinfo.ImpactVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="ploneorg.releasesecurityinfo.ImpactVocabulary" />
+
+  <utility
+      name="ploneorg.releasesecurityinfo.ComplexityVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="ploneorg.releasesecurityinfo.ComplexityVocabulary" />
+
+  <utility
+      name="ploneorg.releasesecurityinfo.AccessVectorVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="ploneorg.releasesecurityinfo.AccessVectorVocabulary" />
+
+  <utility
+      name="ploneorg.releasesecurityinfo.AuthenticationVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="ploneorg.releasesecurityinfo.AuthenticationVocabulary" />
+
+
+
 </configure>
+
