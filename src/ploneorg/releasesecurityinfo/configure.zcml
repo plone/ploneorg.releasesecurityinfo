@@ -58,7 +58,11 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       component="ploneorg.releasesecurityinfo.AuthenticationVocabulary" />
 
-
+  <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        component="ploneorg.releasesecurityinfo.versions.plone_version_vocabulary"
+        name="ploneorg.releasesecurityinfo.ploneversions"
+   />
 
 </configure>
 
