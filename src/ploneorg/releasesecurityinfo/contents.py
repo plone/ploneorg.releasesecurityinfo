@@ -1,18 +1,25 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
-from ploneorg.releasesecurityinfo import _
+from math import fabs
+from plone.dexterity.content import Container
+from plone.dexterity.content import Item
+from ploneorg.releasesecurityinfo import AccessVectorVocabulary
+from ploneorg.releasesecurityinfo import AuthenticationVocabulary
+from ploneorg.releasesecurityinfo import ComplexityVocabulary
+from ploneorg.releasesecurityinfo import ImpactVocabulary
+from ploneorg.releasesecurityinfo.interfaces import IHotfix
+from ploneorg.releasesecurityinfo.interfaces import IHotfixFolder
+from ploneorg.releasesecurityinfo.interfaces import INameFromReleaseDate
+from ploneorg.releasesecurityinfo.interfaces import IRelease
 from ploneorg.releasesecurityinfo.interfaces import IReleaseFolder
 from ploneorg.releasesecurityinfo.interfaces import IReleaseSeries
-from ploneorg.releasesecurityinfo.interfaces import IRelease
-from ploneorg.releasesecurityinfo.interfaces import IHotfixFolder
-from ploneorg.releasesecurityinfo.interfaces import IHotfix
-from ploneorg.releasesecurityinfo.interfaces import INameFromReleaseDate
 from ploneorg.releasesecurityinfo.interfaces import IVulnerability
-from plone.dexterity.content import Item
-from plone.dexterity.content import Container
+from Products.CMFCore.utils import getToolByName
 from zope.interface import implementer
 from zope.interface import implements
+
+import pkg_resources
 
 
 @implementer(IReleaseFolder)
@@ -33,7 +40,7 @@ class Release(Item):
 @implementer(IHotfixFolder)
 class HotfixFolder(Container):
     implements(IHotfixFolder)
-    
+
 
 @implementer(INameFromReleaseDate)
 class NameFromReleaseDate(object):
@@ -46,7 +53,6 @@ class NameFromReleaseDate(object):
     def title(self):
         # Hotfixes have their ID generated from their release date.
         return self.context.release_date.strftime("%Y%m%d")
-
 
 
 @implementer(IHotfix)
@@ -88,7 +94,6 @@ class Hotfix(Container):
         return result
 
 
-
 @implementer(IVulnerability)
 class Vulnerability(Item):
     implements(IVulnerability)
@@ -104,22 +109,30 @@ class Vulnerability(Item):
         complexity_scoring = [0.35, 0.61, 0.71]
         vector_scoring = [0.395, 0.646, 1.0]
 
-        access_vector = vector_scoring[scoring.index(AccessVectorVocabulary.getTerm(self.cvss_access_vector).token)]
-        access_complexity = complexity_scoring[scoring.index(ComplexityVocabulary.getTerm(self.cvss_access_complexity).token)]
-        authentication = authentication_scoring[scoring.index(AuthenticationVocabulary.getTerm(self.cvss_authentication).token)]
-        conf_impact = impact_scoring[scoring.index(ImpactVocabulary.getTerm(self.cvss_confidentiality_impact).token)]
-        integ_impact = impact_scoring[scoring.index(ImpactVocabulary.getTerm(self.cvss_integrity_impact).token)]
-        avail_impact = impact_scoring[scoring.index(ImpactVocabulary.getTerm(self.cvss_availability_impact).token)]
+        access_vector = vector_scoring[scoring.index(
+            AccessVectorVocabulary.getTerm(self.cvss_access_vector).token)]
+        access_complexity = complexity_scoring[scoring.index(
+            ComplexityVocabulary.getTerm(self.cvss_access_complexity).token)]
+        authentication = authentication_scoring[scoring.index(
+            AuthenticationVocabulary.getTerm(self.cvss_authentication).token)]
+        conf_impact = impact_scoring[scoring.index(
+            ImpactVocabulary.getTerm(self.cvss_confidentiality_impact).token)]
+        integ_impact = impact_scoring[scoring.index(
+            ImpactVocabulary.getTerm(self.cvss_integrity_impact).token)]
+        avail_impact = impact_scoring[scoring.index(
+            ImpactVocabulary.getTerm(self.cvss_availability_impact).token)]
 
-        impact = 10.41*(1-(1-conf_impact)*(1-integ_impact)*(1-avail_impact))
-        exploitability = 20* access_vector*access_complexity*authentication
+        impact = 10.41 * (1 - (1 - conf_impact) * (1 - integ_impact) *
+                              (1 - avail_impact))
+        exploitability = (20 * access_vector * access_complexity *
+                          authentication)
 
         if impact == 0:
             f_impact = 0
         else:
             f_impact = 1.176
 
-        base_score = round(fabs(((0.6*impact)+(0.4*exploitability)-1.5)*f_impact), 1)
+        base_score = round(fabs(((0.6 * impact) +
+                                (0.4 * exploitability) - 1.5) * f_impact), 1)
 
         return base_score
-

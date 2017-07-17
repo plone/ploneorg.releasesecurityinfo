@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Init and utils."""
+'''Init and utils.'''
 
 from zope.i18nmessageid import MessageFactory
+from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.interface import implementer
-from zope.interface import provider
+
 
 _ = MessageFactory('ploneorg.releasesecurityinfo')
 
@@ -27,34 +27,34 @@ def state_vocabulary(context):
 @provider(IVocabularyFactory)
 def ImpactVocabulary(context):
     return SimpleVocabulary([
-        SimpleTerm("N", "low", title="None"),
-        SimpleTerm("P", "medium", title="Partial"),
-        SimpleTerm("C", "high", title="Complete"),
+        SimpleTerm('N', 'low', title='None'),
+        SimpleTerm('P', 'medium', title='Partial'),
+        SimpleTerm('C', 'high', title='Complete'),
     ])
 
 
 @provider(IVocabularyFactory)
-def ComplexityVocabulary(context)
+def ComplexityVocabulary(context):
     return SimpleVocabulary([
-        SimpleTerm("H", "low", "High"),
-        SimpleTerm("M", "medium", "Medium"),
-        SimpleTerm("L", "high", "Low")
+        SimpleTerm('H', 'low', 'High'),
+        SimpleTerm('M', 'medium', 'Medium'),
+        SimpleTerm('L', 'high', 'Low')
     ])
 
 
 @provider(IVocabularyFactory)
-def AccessVectorVocabulary(context)
+def AccessVectorVocabulary(context):
     return SimpleVocabulary([
-        SimpleTerm("L", "low", "Local"),
-        SimpleTerm("A", "medium", "Adjacent Network"),
-        SimpleTerm("N", "high", "Network")
+        SimpleTerm('L', 'low', 'Local'),
+        SimpleTerm('A', 'medium', 'Adjacent Network'),
+        SimpleTerm('N', 'high', 'Network')
     ])
-    
+
 
 @provider(IVocabularyFactory)
-def AuthenticationVocabulary(context)
+def AuthenticationVocabulary(context):
     return SimpleVocabulary([
-        SimpleTerm("M", "low", "Multiple"),
-        SimpleTerm("S", "medium", "Single"),
-        SimpleTerm("N", "high", "None")
+        SimpleTerm('M', 'low', 'Multiple'),
+        SimpleTerm('S', 'medium', 'Single'),
+        SimpleTerm('N', 'high', 'None')
     ])

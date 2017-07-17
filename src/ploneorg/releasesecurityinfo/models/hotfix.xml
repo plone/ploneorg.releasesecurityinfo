@@ -27,13 +27,6 @@
         <required>True</required>
       </field>
 
-      <field name="hotfix"
-             type="plone.app.vulnerabilities.field.ChecksummedFile" >
-        <title i18n:translate="">Hotfix</title>
-        <description i18n:translate="">Old-style product tarball for this hotfix</description>
-        <required>False</required>
-      </field>
-
       <field name="text"
              type="plone.app.textfield.RichText">
         <title i18n:translate="">Release body</title>
@@ -43,7 +36,7 @@
 
       <fieldset name="preannounce"
                 label="preannounce"
-                fields=['preannounce_text']
+                fields=["preannounce_text"]
       >
 
       <field name=" preannounce_text"
