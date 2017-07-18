@@ -36,31 +36,31 @@
   <utility
       name="ploneorg.releasesecurityinfo.state_vocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      component="ploneorg.releasesecurityinfo.state_vocabulary" />
+      component="ploneorg.releasesecurityinfo.vocabularies.state_vocabulary" />
 
   <utility
       name="ploneorg.releasesecurityinfo.ImpactVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      component="ploneorg.releasesecurityinfo.ImpactVocabulary" />
+      component="ploneorg.releasesecurityinfo.vocabularies.ImpactVocabulary" />
 
   <utility
       name="ploneorg.releasesecurityinfo.ComplexityVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      component="ploneorg.releasesecurityinfo.ComplexityVocabulary" />
+      component="ploneorg.releasesecurityinfo.vocabularies.ComplexityVocabulary" />
 
   <utility
       name="ploneorg.releasesecurityinfo.AccessVectorVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      component="ploneorg.releasesecurityinfo.AccessVectorVocabulary" />
+      component="ploneorg.releasesecurityinfo.vocabularies.AccessVectorVocabulary" />
 
   <utility
       name="ploneorg.releasesecurityinfo.AuthenticationVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      component="ploneorg.releasesecurityinfo.AuthenticationVocabulary" />
+      component="ploneorg.releasesecurityinfo.vocabularies.AuthenticationVocabulary" />
 
   <utility
         provides="zope.schema.interfaces.IVocabularyFactory"
-        component="ploneorg.releasesecurityinfo.versions.plone_version_vocabulary"
+        component="ploneorg.releasesecurityinfo.vocabularies.plone_version_vocabulary"
         name="ploneorg.releasesecurityinfo.ploneversions"
    />
 
