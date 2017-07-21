@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ploneorg.releasesecurityinfo"
+      metal:use-macro="context/main_template/macros/master">
+
+  
+
+  <metal:block fill-slot="main">
+
+    <h1>Description</h1>
+    <div tal:content="context/description">Description</div>
+    
+    <h1>Release Date</h1>
+    <div tal:content="context/release_date">Release date</div>
+
+    <h1>Release body</h1>
+    <div tal:replace="structure context/text/output"
+           tal:condition="context/text">Release body</div>
+
+    <h1>Preannounce text</h1>
+    <div tal:replace="structure context/preannounce_text/output"
+           tal:condition="context/preannounce_text">Preannounce text</div>
+
+    
+
+
+  </metal:block>
+
+</html>

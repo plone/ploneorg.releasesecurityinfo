@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ploneorg.releasesecurityinfo"
+      metal:use-macro="context/main_template/macros/master">
+
+  
+
+  <metal:block fill-slot="main">
+
+    <h1>Release title</h1>
+    <div tal:content="context/title">Release Title</div>
+    
+    <h1>Codename</h1>
+    <div tal:content="context/codename">Codename</div>
+
+    <h1>Target date</h1>
+    <div tal:content="context/targetdate">Targetdate</div>
+
+    <h1>Release date</h1>
+    <div tal:content="context/releasedate">Releasedate</div>
+
+    <h1>Summary</h1>
+    <div tal:content="context/summary">Summary</div>
+
+    <h1>Release Notes</h1>
+    <div tal:content="context/release_notes">Release Notes</div>
+
+    <h1>Change log</h1>
+    <div tal:content="context/changelog">Change log</div>
+
+
+  </metal:block>
+
+</html>
