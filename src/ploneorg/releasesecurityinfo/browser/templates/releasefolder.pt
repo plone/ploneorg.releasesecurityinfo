@@ -9,8 +9,21 @@
 
   <metal:block fill-slot="main">
 
-    <h1>Launchpad Project Name</h1>
-    <div tal:content="context/project_name">project name</div>
+    <!--
+    Refused to display 'https://launchpad.net/plone/+series' in a frame because it set 'X-Frame-Options' to 'SAMEORIGIN' - ERROR
+    -->
+
+    <iframe src="https://launchpad.net/plone/+series"
+        width="100%" height="500" frameborder="1"
+        allowfullscreen sandbox>
+        <p>
+        <a href="https://launchpad.net/plone/+series">
+            Fallback link for browsers that don't support iframes
+        </a>
+        </p>
+    </iframe>
+
+
 
   </metal:block>
 

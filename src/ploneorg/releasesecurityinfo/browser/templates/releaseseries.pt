@@ -10,25 +10,25 @@
   <metal:block fill-slot="main">
 
     <h1>Launchpad Series name</h1>
-    <div tal:content="context/display_name">Launchpad Series name</div>
+    <div tal:content="context/display_name" tal:condition="context/display_name">Launchpad Series name</div>
     
     <h1>Description</h1>
-    <div tal:content="context/description">Description</div>
+    <div tal:content="context/description" tal:condition="context/description">Description</div>
 
     <h1>Target date</h1>
-    <div tal:content="context/targetdate">Targetdate</div>
+    <div tal:content="context/targetdate" tal:condition="context/targetdate">Targetdate</div>
 
     <h1>Is development focus?</h1>
-    <div tal:content="context/is_development_focus">Is development focus?</div>
+    <div tal:content="context/is_development_focus" tal:condition="context/is_development_focus" >Is development focus?</div>
 
     <h1>branch</h1>
-    <div tal:content="context/branch">branch</div>
+    <div tal:content="context/branch" tal:condition="context/branch">branch</div>
 
     <h1>Release URL pattern</h1>
-    <div tal:content="context/url_pattern">Release URL pattern</div>
+    <div tal:content="context/url_pattern" tal:condition="context/url_pattern">Release URL pattern</div>
 
     <h1>Change log</h1>
-    <div tal:content="context/changelog">Change log</div>
+    <div tal:content="context/changelog" tal:condition="context/changelog">Change log</div>
 
 
   </metal:block>
