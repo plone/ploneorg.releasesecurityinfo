@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
+from plone.app.content.interfaces import INameFromTitle
 from plone.supermodel import model
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
@@ -43,3 +44,8 @@ class IVulnerability(model.Schema):
     """
     Schema for Vulnerability.
     """
+
+
+class INameFromReleaseDate(INameFromTitle):
+    def title():
+        """Return a processed title"""

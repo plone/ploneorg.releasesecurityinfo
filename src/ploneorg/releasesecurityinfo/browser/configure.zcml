@@ -27,4 +27,46 @@
       class="ploneorg.releasesecurityinfo.browser.views.ReleaseFolderUpdateView"
       />
 
+  <browser:page
+        name="view"
+        for="ploneorg.releasesecurityinfo.interfaces.IRelease"
+        template="templates/release.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+        name="view"
+        for="ploneorg.releasesecurityinfo.interfaces.IReleaseFolder"
+        template="templates/releasefolder.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+        name="view"
+        for="ploneorg.releasesecurityinfo.interfaces.IReleaseSeries"
+        template="templates/releaseseries.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+        name="view"
+        for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
+        template="templates/hotfixfolder.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+        name="view"
+        for="ploneorg.releasesecurityinfo.interfaces.IHotfix"
+        template="templates/hotfix.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+        name="view"
+        for="ploneorg.releasesecurityinfo.interfaces.IVulnerability"
+        template="templates/vulnerability.pt"
+        permission="zope2.View"
+        />
+  
 </configure>

@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ploneorg.releasesecurityinfo"
+      metal:use-macro="context/main_template/macros/master">
+
+
+
+  <metal:block fill-slot="main">
+
+    <h1>Launchpad Series name</h1>
+    <div tal:content="context/display_name" tal:condition="context/display_name">Launchpad Series name</div>
+
+    <h1>Description</h1>
+    <div tal:content="context/description" tal:condition="context/description">Description</div>
+
+    <h1>Is development focus?</h1>
+    <div tal:content="context/is_development_focus" tal:condition="context/is_development_focus" >Is development focus?</div>
+
+    <h1>branch</h1>
+    <div tal:content="context/branch" tal:condition="context/branch">branch</div>
+
+    <h1>Release URL pattern</h1>
+    <div tal:content="context/url_pattern" tal:condition="context/url_pattern">Release URL pattern</div>
+
+  </metal:block>
+
+</html>

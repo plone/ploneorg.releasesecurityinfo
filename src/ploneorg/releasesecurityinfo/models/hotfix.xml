@@ -11,7 +11,42 @@
     <schema>
 
       <!-- field definitions -->
+      <field name="description"
+             type="zope.schema.Text"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View">
+        <title i18n:translate="">Summary</title>
+        <description i18n:translate="">A summary of the hotfix contents, used in item listings and search results.</description>
+        <required>False</required>
+      </field>
 
+      <field name="release_date"
+             type="zope.schema.Date" >
+        <title i18n:translate="">Release Date</title>
+        <description i18n:translate="">Date the hotfix will be released</description>
+        <required>True</required>
+      </field>
+
+      <field name="text"
+             type="plone.app.textfield.RichText">
+        <title i18n:translate="">Release body</title>
+        <description i18n:translate="">This will be shown after the hotfix is released</description>
+        <required>False</required>
+      </field>
+
+      <fieldset name="preannounce"
+                label="preannounce"
+      >
+
+      <field name="preannounce_text"
+             type="plone.app.textfield.RichText">
+        <title i18n:translate="">Preannounce body</title>
+        <description i18n:translate="">This will be shown while the hotfix is in the preannounce state</description>
+        <required>False</required>
+      </field>
+
+      
+      </fieldset>
 
     </schema>
 
