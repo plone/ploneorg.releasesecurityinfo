@@ -10,7 +10,7 @@
   <metal:block fill-slot="main">
 
     <!--
-    Refused to display 'https://launchpad.net/plone/+series' in a frame because it set 'X-Frame-Options' to 'SAMEORIGIN' - ERROR
+    Refused to display 'https://launchpad.net/plone/+series' in a frame because it set 'X-Frame-Options' to 'SAMEORIGIN' - ERROR raised
     -->
 
     <iframe src="https://launchpad.net/plone/+series"
