@@ -9,7 +9,7 @@ from plone import api
 import logging
 
 
-log = logging.getLogger("ploneorg.releasesecurityinfo")
+log = logging.getLogger('ploneorg.releasesecurityinfo')
 
 
 def update_releasefolder(context):
@@ -80,4 +80,4 @@ def update_releasefolder(context):
                             # link = f.self_link
 
     except ServerNotFoundError:
-        log.error("Connection Error")
+        log.error('Connection Error')

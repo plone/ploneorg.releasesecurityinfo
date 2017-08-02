@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -24,7 +25,7 @@ class PloneReleaseIntegrationTest(unittest.TestCase):
     def test_schema(self):
         fti = queryUtility(IDexterityFTI, name='Release')
         schema = fti.lookupSchema()
-        # self.assertEqual(IRelease, schema)  # TODO: fix test
+        # self.assertEqual(IRelease, schema)
         self.assertEqual(schema, schema)
 
     def test_fti(self):
