@@ -68,5 +68,12 @@
         template="templates/vulnerability.pt"
         permission="zope2.View"
         />
+
+   <browser:page
+    name="hotfix_json"
+    class="ploneorg.releasesecurityinfo.browser.views.HotfixJSONListing"
+    for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
+    permission="zope2.View"
+    />
   
 </configure>
