@@ -17,34 +17,32 @@ from ploneorg.releasesecurityinfo.vocabularies import ComplexityVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import ImpactVocabulary
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implementer
-from zope.interface import implements
 
 import pkg_resources
 
 
 @implementer(IReleaseFolder)
 class ReleaseFolder(Container):
-    implements(IReleaseFolder)
+    pass
 
 
 @implementer(IReleaseSeries)
 class ReleaseSeries(Container):
-    implements(IReleaseSeries)
+    pass
 
 
 @implementer(IRelease)
 class Release(Item):
-    implements(IRelease)
+    pass
 
 
 @implementer(IHotfixFolder)
 class HotfixFolder(Container):
-    implements(IHotfixFolder)
+    pass
 
 
 @implementer(INameFromReleaseDate)
 class NameFromReleaseDate(object):
-    implements(INameFromReleaseDate)
 
     def __init__(self, context):
         self.context = context
@@ -52,22 +50,21 @@ class NameFromReleaseDate(object):
     @property
     def title(self):
         # Hotfixes have their ID generated from their release date.
-        return self.context.release_date.strftime("%Y%m%d")
+        return self.context.release_date.strftime('%Y%m%d')
 
 
 @implementer(IHotfix)
 class Hotfix(Container):
-    implements(IHotfix)
 
     @property
     def title(self):
         # Hotfixes have their ID generated from their release date.
-        return self.release_date.strftime("%Y%m%d")
+        return self.release_date.strftime('%Y%m%d')
 
     def released(self):
-        workflowTool = getToolByName(self, "portal_workflow")
-        status = workflowTool.getStatusOf("hotfix_workflow", self)
-        state = status["review_state"]
+        workflowTool = getToolByName(self, 'portal_workflow')
+        status = workflowTool.getStatusOf('hotfix_workflow', self)
+        state = status['review_state']
         return state
 
     def setTitle(self, title):
@@ -82,7 +79,7 @@ class Hotfix(Container):
         catalog = getToolByName(self, 'portal_catalog')
 
         brains = catalog(object_provides=IVulnerability.__identifier__,
-                         path={"query": '/'.join(self.getPhysicalPath())})
+                         path={'query': '/'.join(self.getPhysicalPath())})
 
         result = []
         for brain in brains:
@@ -96,14 +93,13 @@ class Hotfix(Container):
 
 @implementer(IVulnerability)
 class Vulnerability(Item):
-    implements(IVulnerability)
 
     @property
     def cvss_score(self):
         """ Scoring, based on http://www.first.org/cvss/cvss-guide#i2.4
         """
 
-        scoring = ["low", "medium", "high"]
+        scoring = ['low', 'medium', 'high']
         impact_scoring = [0.0, 0.275, 0.660]
         authentication_scoring = [0.45, 0.56, 0.704]
         complexity_scoring = [0.35, 0.61, 0.71]
