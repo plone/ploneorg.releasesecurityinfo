@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from ploneorg.releasesecurityinfo.utils import update_releasefolder
 
 import argparse
