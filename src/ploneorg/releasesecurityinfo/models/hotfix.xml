@@ -34,6 +34,14 @@
         <required>False</required>
       </field>
 
+
+      <field name="affected_versions" type="zope.schema.List">
+       <title>Affected Plone versions</title>
+        <value_type type="zope.schema.Choice">
+            <vocabulary>plone.app.vulnerabilities.ploneversions</vocabulary>
+        </value_type>
+      </field>
+
       <fieldset name="preannounce"
                 label="preannounce"
       >
