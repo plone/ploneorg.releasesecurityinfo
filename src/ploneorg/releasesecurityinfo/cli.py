@@ -10,11 +10,11 @@ log = logging.getLogger('ploneorg.releasesecurityinfo-cli')
 """
 usage:
 bin/instance -O <portal_id> update_releasefolder
-                                  <Path to AddOnFolder relative to Zope root>
+                                  <Path to releasefolder relative to Zope root>
 """
 
 
-def cli_update_releasefolder(app, args):
+def cli_update(app, args):
     parser = argparse.ArgumentParser('updates the releasefolder')
     parser.add_argument('-c')
     parser.add_argument(
@@ -34,4 +34,3 @@ def cli_update_releasefolder(app, args):
         log.setLevel(logging.INFO)
     folder = app.unrestrictedTraverse(args.context)
     update_releasefolder(folder, logger=log)
-    
