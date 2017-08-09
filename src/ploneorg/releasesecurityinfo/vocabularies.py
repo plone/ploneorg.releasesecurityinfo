@@ -56,10 +56,12 @@ def AuthenticationVocabulary(context):
         SimpleTerm('N', 'high', 'None')
     ])
 
-
+@provider(IVocabularyFactory)
 def plone_version_vocabulary(context):
-    registry = getUtility(IRegistry)
-    versions = registry['plone.versions']
-    list_versions = [a.split('-')[0] for a in versions]
-    items = [SimpleTerm(i, i, i) for i in sorted(list_versions, reverse=True)]
-    return SimpleVocabulary(items)
+    terms = []
+    if context:
+#       versions = context.release
+#       for version in versions:
+#            terms.append(SimpleVocabulary.createTerm(version['name'], version['name']))
+    return SimpleVocabulary(terms)
+
