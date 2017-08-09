@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from plone.registry.interfaces import IRegistry
-from zope.component import getUtility
 from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
@@ -56,12 +54,13 @@ def AuthenticationVocabulary(context):
         SimpleTerm('N', 'high', 'None')
     ])
 
+
 @provider(IVocabularyFactory)
 def plone_version_vocabulary(context):
     terms = []
     if context:
+        pass
 #       versions = context.release
 #       for version in versions:
-#            terms.append(SimpleVocabulary.createTerm(version['name'], version['name']))
+#            terms.append(SimpleVocabulary.createTerm(version['name']))
     return SimpleVocabulary(terms)
-
