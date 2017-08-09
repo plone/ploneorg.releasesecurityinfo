@@ -3,7 +3,6 @@
 
 from httplib2 import ServerNotFoundError
 from launchpadlib.launchpad import Launchpad
-# from pkg_resources import parse_version
 from plone import api
 
 import logging
@@ -12,7 +11,7 @@ import logging
 log = logging.getLogger('ploneorg.releasesecurityinfo')
 
 
-def update_releasefolder(context):
+def update_releasefolder(context,logger):
     try:
         launchpad = Launchpad.login_anonymously('plone release crawler',
                                                 'production',
