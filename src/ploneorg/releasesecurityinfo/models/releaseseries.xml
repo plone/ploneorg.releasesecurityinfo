@@ -51,11 +51,32 @@
              type="zope.schema.Bool"
              security:write_permission="cmf.ManagePortal"
              security:read_permission="zope2.View" >
-        <title i18n:translate="">Is Development Focus</title>
+        <title i18n:translate="">Is Development Focus?</title>
         <description i18n:translate=""></description>
         <required>False</required>
         <default>False</default>
       </field>
+
+      <field name="is_security_supported"
+             type="zope.schema.Bool"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View" >
+        <title i18n:translate="">Is Security Supported?</title>
+        <description i18n:translate=""></description>
+        <required>False</required>
+        <default>False</default>
+      </field>
+
+      <field name="is_active_maintained"
+             type="zope.schema.Bool"
+             security:write_permission="cmf.ManagePortal"
+             security:read_permission="zope2.View" >
+        <title i18n:translate="">Is Actively maintained?</title>
+        <description i18n:translate=""></description>
+        <required>False</required>
+        <default>False</default>
+      </field>
+
 
       <field name="branch"
              type="zope.schema.TextLine"

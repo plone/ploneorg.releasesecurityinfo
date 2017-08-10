@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+2<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
@@ -17,6 +17,12 @@
 
     <h1>Is development focus?</h1>
     <div tal:content="context/is_development_focus" tal:condition="context/is_development_focus" >Is development focus?</div>
+
+    <h1>Is Security supported?</h1>
+    <div tal:content="context/is_security_supported" tal:condition="context/is_security_supported" >Is Security Supported?</div>
+
+    <h1>Is Actively maintained?</h1>
+    <div tal:content="context/is_active_maintained" tal:condition="context/is_active_maintained" >Is Actively maintained?</div>
 
     <h1>branch</h1>
     <div tal:content="context/branch" tal:condition="context/branch">branch</div>
