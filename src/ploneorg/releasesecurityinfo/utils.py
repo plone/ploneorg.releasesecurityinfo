@@ -3,16 +3,10 @@
 
 from httplib2 import ServerNotFoundError
 from launchpadlib.launchpad import Launchpad
-# from pkg_resources import parse_version
 from plone import api
 
-import logging
 
-
-log = logging.getLogger('ploneorg.releasesecurityinfo')
-
-
-def update_releasefolder(context):
+def update_releasefolder(context, logger):
     try:
         launchpad = Launchpad.login_anonymously('plone release crawler',
                                                 'production',
@@ -34,7 +28,7 @@ def update_releasefolder(context):
             name = serie.name
             series_obj = None
             if name not in existing_series.keys():
-                log.info('Create new ReleaseSeries for %s', name)
+                logger.info('Create new ReleaseSeries for %s', name)
                 series_obj = api.content.create(container=context,
                                                 type='ReleaseSeries',
                                                 id=name,
@@ -43,7 +37,7 @@ def update_releasefolder(context):
                 path = context.absolute_url() + '/' + name
                 series_obj = api.content.get(path=path)
                 series_obj = existing_series.get(name)
-                log.info('Update ReleaseSeries Information for %s', name)
+                logger.info('Update ReleaseSeries Information for %s', name)
 
             if series_obj is not None:
                 series_obj.title = name
@@ -58,7 +52,7 @@ def update_releasefolder(context):
                 release_obj = None
                 for elem in serie.all_milestones:
                     if elem.name not in existing_releases.keys():
-                        log.info('Create new Release for %s', elem.name)
+                        logger.info('Create new Release for %s', elem.name)
                         release_obj = api.content.create(container=series_obj,
                                                          type='Release',
                                                          id=elem.name,
@@ -66,7 +60,7 @@ def update_releasefolder(context):
                     else:
                         path = context.absolute_url() + '/' + name + '/' + elem.name  # NOQA: E501
                         release_obj = api.content.get(path=path)
-                        log.info('Update Release Information for %s', elem.name)  # NOQA: E501
+                        logger.info('Update Release Information for %s', elem.name)  # NOQA: E501
 
                     if release_obj is not None:
                         release_obj.code_name = elem.code_name
@@ -76,8 +70,8 @@ def update_releasefolder(context):
                         release_obj.releasedate = release_elem.date_released
 
                         for f in release_elem.files:
-                            log.info(f)
+                            logger.info(f)
                             # link = f.self_link
 
     except ServerNotFoundError:
-        log.error('Connection Error')
+        logger.error('Connection Error')
