@@ -2,6 +2,7 @@
 
 from Acquisition import aq_inner
 from datetime import datetime
+from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from plone.registry.interfaces import IRegistry
 from ploneorg.releasesecurityinfo.interfaces import IHotfix
@@ -44,22 +45,55 @@ class HotfixListing(BrowserView):
 
         return sorted(brains, key=lambda hotfix: hotfix.id, reverse=True)
 
+
+
     def get_versions(self):
-        registry = getUtility(IRegistry)
-        versions = registry['plone.versions']
-        security = registry['plone.securitysupport']
-        maintenance = registry['plone.activemaintenance']
+        versions = []
+
+        '''
+        releaseseries = api.content.find(portal_type='ReleaseSeries')
+        for brain in releaseseries:
+            series = brain.getObject()
+            print series.title
+            versions.append(series)
+        '''
+
+        releases = api.content.find(portal_type='Release')
+        for brain in releases:
+            release = brain.getObject()
+            versions.append(release)
+
+        security = []
+        security_brains = api.content.find(
+                    portal_type = 'ReleaseSeries',
+                    is_security_supported = True,
+                    )
+        for brain in security_brains:
+            series = brain.getObject()
+            security.append(series.title)
+
+        maintenance = []
+        maintenance_brains = api.content.find(
+                    portal_type = 'ReleaseSeries',
+                    is_active_maintained = True,
+                    )
+        for brain in maintenance_brains:
+            series = brain.getObject()
+            maintenance.append(series.title)
+
         result = []
         for v in sorted(versions, reverse=True):
-            version = v.split('-')[0]
+            version = v.title
             data = {
                 'name': version,
-                'date': v.split('-')[1],
+                'date': v.releasedate,
                 'security': version in security,
                 'maintenance': version in maintenance
             }
             result.append(data)
         return result
+
+
 
     def get_hotfixes_for_version(self, version):
         # get all hotfixes
@@ -88,17 +122,46 @@ class HotfixJSONListing(HotfixListing):
         self.request = request
 
     def __call__(self):
-        registry = getUtility(IRegistry)
-        versions = registry['plone.versions']
-        security = registry['plone.securitysupport']
-        maintenance = registry['plone.activemaintenance']
+        versions = []
+        '''
+        releaseseries = api.content.find(portal_type='ReleaseSeries')
+        for brain in releaseseries:
+            series = brain.getObject()
+            print series.title
+            versions.append(series)
+        '''
+        releases = api.content.find(portal_type='Release')
+        for brain in releases:
+            release = brain.getObject()
+            print release.title
+            versions.append(release)
+        
+
+        security = []
+        security_brains = api.content.find(
+                    portal_type = 'ReleaseSeries',
+                    is_security_supported = True,
+                    )
+        for brain in security_brains:
+            series = brain.getObject()
+            security.append(series.title)
+
+        maintenance = []
+        maintenance_brains = api.content.find(
+                    portal_type = 'ReleaseSeries',
+                    is_active_maintained = True,
+                    )
+        for brain in maintenance_brains:
+            series = brain.getObject()
+            maintenance.append(series.title)
+
         result = []
 
         for v in sorted(versions, reverse=True):
-            version = v.split('-')[0]
+            version = v.title
             date_format = '%b %d, %Y'
             plone_version_release_date = datetime.strptime(
-                v.split('-')[1], date_format).date()
+                v.releasedate, date_format).date()
 
             vdata = {
                 'name': version,
