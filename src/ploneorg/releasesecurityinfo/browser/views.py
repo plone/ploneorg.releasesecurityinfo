@@ -46,13 +46,13 @@ class HotfixListing(BrowserView):
     def get_versions(self):
         versions = []
 
-        '''
+        """
         releaseseries = api.content.find(portal_type='ReleaseSeries')
         for brain in releaseseries:
             series = brain.getObject()
             print series.title
             versions.append(series)
-        '''
+        """
 
         releases = api.content.find(portal_type='Release')
         for brain in releases:
