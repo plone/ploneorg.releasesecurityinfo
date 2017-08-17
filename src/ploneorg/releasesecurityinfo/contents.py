@@ -16,7 +16,6 @@ from ploneorg.releasesecurityinfo.vocabularies import AccessVectorVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import AuthenticationVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import ComplexityVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import ImpactVocabulary
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implementer
 
 import pkg_resources

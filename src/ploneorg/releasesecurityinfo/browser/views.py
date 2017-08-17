@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from Acquisition import aq_inner
 from datetime import datetime
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from ploneorg.releasesecurityinfo.interfaces import IHotfix
 from ploneorg.releasesecurityinfo.utils import update_releasefolder
 from Products.Five.browser import BrowserView
-from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
 import json

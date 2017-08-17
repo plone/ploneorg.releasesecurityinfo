@@ -4,6 +4,7 @@ from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
+from ploneorg.releasesecurityinfo.contents import Release
 from ploneorg.releasesecurityinfo.interfaces import IRelease
 from ploneorg.releasesecurityinfo.testing import PLONEORG_RELEASESECURITYINFO_INTEGRATION_TESTING  # noqa
 from zope.component import createObject
@@ -39,6 +40,11 @@ class PloneReleaseIntegrationTest(unittest.TestCase):
         self.assertTrue(IRelease.providedBy(obj))
 
     def test_adding(self):  # Not globally allowed
+        self.portal = api.portal.get()
         with self.assertRaises(ValueError,
                                message='Disallowed subobject type: Release'):
-            self.portal.invokeFactory('Release', 'Release')
+            api.content.create(
+                container=self.portal,
+                type=Release,
+                title='Future',
+            )
