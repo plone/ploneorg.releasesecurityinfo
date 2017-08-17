@@ -153,12 +153,12 @@ class HotfixJSONListing(HotfixListing):
         for v in sorted(versions, reverse=True):
             version = v.title
             date_format = '%b %d, %Y'
-            plone_version_release_date = datetime.strptime(
+            version_release_date = datetime.strptime(
                 v.releasedate, date_format).date()
 
             vdata = {
                 'name': version,
-                'date': plone_version_release_date.isoformat(),
+                'date': version_release_date.isoformat(),
                 'security': version in security,
                 'maintenance': version in maintenance,
                 'hotfixes': {

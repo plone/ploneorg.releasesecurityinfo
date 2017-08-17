@@ -57,7 +57,7 @@ def AuthenticationVocabulary(context):
 
 
 @provider(IVocabularyFactory)
-def plone_version_vocabulary(context):
+def version_vocabulary(context):
     versions = []
     releaseseries = api.content.find(portal_type='ReleaseSeries')
     for brain in releaseseries:
