@@ -2,6 +2,7 @@
 """Module where all interfaces, events and exceptions live."""
 
 from math import fabs
+from plone import api
 from plone.dexterity.content import Container
 from plone.dexterity.content import Item
 from ploneorg.releasesecurityinfo.interfaces import IHotfix
@@ -62,7 +63,7 @@ class Hotfix(Container):
         return self.release_date.strftime('%Y%m%d')
 
     def released(self):
-        workflowTool = getToolByName(self, 'portal_workflow')
+        workflowTool = api.portal.get_tool('portal_workflow')
         status = workflowTool.getStatusOf('hotfix_workflow', self)
         state = status['review_state']
         return state
@@ -76,10 +77,10 @@ class Hotfix(Container):
     def getAffectedVersions(self):
         """ Pull affected versions from the contained vulnerabilities."""
 
-        catalog = getToolByName(self, 'portal_catalog')
-
-        brains = catalog(object_provides=IVulnerability.__identifier__,
-                         path={'query': '/'.join(self.getPhysicalPath())})
+        brains = api.content.find(
+            object_provides=IVulnerability.__identifier__,
+            path={'query': '/'.join(self.getPhysicalPath())},
+        )
 
         result = []
         for brain in brains:

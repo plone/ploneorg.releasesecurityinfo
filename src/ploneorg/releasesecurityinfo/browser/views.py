@@ -35,11 +35,7 @@ class HotfixListing(BrowserView):
     """
 
     def get_hotfixes(self):
-        context = aq_inner(self.context)
-        tools = getMultiAdapter((context, self.request), name=u'plone_tools')
-
-        portal_catalog = tools.catalog()
-        brains = portal_catalog(object_provides=IHotfix.__identifier__)
+        brains = api.content.find(object_provides=IHotfix.__identifier__)
 
         return sorted(brains, key=lambda hotfix: hotfix.id, reverse=True)
 
@@ -92,11 +88,7 @@ class HotfixListing(BrowserView):
     def get_hotfixes_for_version(self, version):
         # get all hotfixes
         result = []
-        context = aq_inner(self.context)
-        tools = getMultiAdapter((context, self.request), name=u'plone_tools')
-
-        portal_catalog = tools.catalog()
-        brains = portal_catalog(object_provides=IHotfix.__identifier__)
+        brains = api.content.find(object_provides=IHotfix.__identifier__)
 
         for brain in brains:
             if version in brain.getObject().getAffectedVersions():
