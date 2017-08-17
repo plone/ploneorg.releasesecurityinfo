@@ -5,6 +5,16 @@ from httplib2 import ServerNotFoundError
 from launchpadlib.launchpad import Launchpad
 # from pkg_resources import parse_version
 from plone import api
+from Products.CMFPlone.Portal import PloneSite
+from ploneorg.releasesecurityinfo.contents import ReleaseFolder
+from ploneorg.releasesecurityinfo.contents import ReleaseSeries
+from z3c.formwidget.optgroup.widget import OptgroupTerm
+from zope.interface import provider
+from zope.interface import directlyProvides
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 import logging
 
@@ -81,3 +91,28 @@ def update_releasefolder(context):
 
     except ServerNotFoundError:
         log.error('Connection Error')
+
+
+@provider(IVocabularyFactory)
+def version_vocabulary(context):
+    parent = context.aq_parent
+    while not isinstance(parent, ReleaseFolder):
+        if isinstance(parent, PloneSite):
+            return SimpleVocabulary([])
+        parent = parent.aq_parent
+    versions = []
+    if isinstance(parent, ReleaseFolder):
+        for name, obj in parent.items():
+            if isinstance(obj, ReleaseSeries):
+                series = obj
+                for release_title, release in series.items():
+                    versions.append(OptgroupTerm(
+                        value=release_title,
+                        token=str(release_title),
+                        title=release_title,
+                        optgroup=series.title,
+                    ))
+    return SimpleVocabulary(versions)
+
+
+directlyProvides(version_vocabulary, IContextSourceBinder)

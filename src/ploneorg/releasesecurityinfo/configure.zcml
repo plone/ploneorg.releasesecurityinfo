@@ -60,9 +60,8 @@
 
   <utility
         provides="zope.schema.interfaces.IVocabularyFactory"
-        component="ploneorg.releasesecurityinfo.vocabularies.version_vocabulary"
+        component="ploneorg.releasesecurityinfo.utils.version_vocabulary"
         name="ploneorg.releasesecurityinfo.versions"
    />
 
 </configure>
-

@@ -43,6 +43,7 @@ setup(
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
+        'z3c.formwidget.optgroup',
         'launchpadlib',
         'simplejson',
         'requests',

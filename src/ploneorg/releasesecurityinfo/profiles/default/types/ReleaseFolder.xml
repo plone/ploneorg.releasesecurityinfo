@@ -21,6 +21,7 @@
   <!-- Hierarchy control -->
   <property name="allowed_content_types">
     <!-- <element value="" />-->
+    <element value="HotfixFolder" />
     <element value="ReleaseSeries" />
     <element value="Release" />
   </property>

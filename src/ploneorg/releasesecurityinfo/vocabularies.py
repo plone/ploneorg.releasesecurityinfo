@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from plone import api
 from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
@@ -54,19 +53,3 @@ def AuthenticationVocabulary(context):
         SimpleTerm('S', 'medium', 'Single'),
         SimpleTerm('N', 'high', 'None')
     ])
-
-
-@provider(IVocabularyFactory)
-def version_vocabulary(context):
-    versions = []
-    releaseseries = api.content.find(portal_type='ReleaseSeries')
-    for brain in releaseseries:
-        series = brain.getObject()
-        versions.append(SimpleVocabulary.createTerm(series.title))
-
-    releases = api.content.find(portal_type='Release')
-    for brain in releases:
-        release = brain.getObject()
-        versions.append(SimpleVocabulary.createTerm(release.title))
-
-    return SimpleVocabulary(versions)
