@@ -63,11 +63,10 @@ def plone_version_vocabulary(context):
     for brain in releaseseries:
         series = brain.getObject()
         versions.append(SimpleVocabulary.createTerm(series.title))
-    
+
     releases = api.content.find(portal_type='Release')
     for brain in releases:
         release = brain.getObject()
         versions.append(SimpleVocabulary.createTerm(release.title))
-    
+
     return SimpleVocabulary(versions)
-    
