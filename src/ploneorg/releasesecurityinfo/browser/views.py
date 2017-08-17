@@ -117,13 +117,13 @@ class HotfixJSONListing(HotfixListing):
 
     def __call__(self):
         versions = []
-        '''
+        """
         releaseseries = api.content.find(portal_type='ReleaseSeries')
         for brain in releaseseries:
             series = brain.getObject()
             print series.title
             versions.append(series)
-        '''
+        """
         releases = api.content.find(portal_type='Release')
         for brain in releases:
             release = brain.getObject()
