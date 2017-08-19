@@ -33,7 +33,7 @@ def ComplexityVocabulary(context):
     return SimpleVocabulary([
         SimpleTerm('H', 'low', 'High'),
         SimpleTerm('M', 'medium', 'Medium'),
-        SimpleTerm('L', 'high', 'Low')
+        SimpleTerm('L', 'high', 'Low'),
     ])
 
 
@@ -42,7 +42,7 @@ def AccessVectorVocabulary(context):
     return SimpleVocabulary([
         SimpleTerm('L', 'low', 'Local'),
         SimpleTerm('A', 'medium', 'Adjacent Network'),
-        SimpleTerm('N', 'high', 'Network')
+        SimpleTerm('N', 'high', 'Network'),
     ])
 
 
@@ -51,5 +51,5 @@ def AuthenticationVocabulary(context):
     return SimpleVocabulary([
         SimpleTerm('M', 'low', 'Multiple'),
         SimpleTerm('S', 'medium', 'Single'),
-        SimpleTerm('N', 'high', 'None')
+        SimpleTerm('N', 'high', 'None'),
     ])

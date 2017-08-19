@@ -78,7 +78,7 @@ class HotfixListing(BrowserView):
                 'name': version,
                 'date': v.releasedate,
                 'security': version in security,
-                'maintenance': version in maintenance
+                'maintenance': version in maintenance,
             }
             result.append(data)
         return result
@@ -153,7 +153,7 @@ class HotfixJSONListing(HotfixListing):
                 'maintenance': version in maintenance,
                 'hotfixes': {
 
-                }
+                },
             }
 
             applied_hotfixes = []

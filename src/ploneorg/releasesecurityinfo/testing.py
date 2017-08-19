@@ -29,13 +29,13 @@ PLONEORG_RELEASESECURITYINFO_FIXTURE = PloneorgReleasesecurityinfoLayer()
 
 PLONEORG_RELEASESECURITYINFO_INTEGRATION_TESTING = IntegrationTesting(
     bases=(PLONEORG_RELEASESECURITYINFO_FIXTURE,),
-    name='PloneorgReleasesecurityinfoLayer:IntegrationTesting'
+    name='PloneorgReleasesecurityinfoLayer:IntegrationTesting',
 )
 
 
 PLONEORG_RELEASESECURITYINFO_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(PLONEORG_RELEASESECURITYINFO_FIXTURE,),
-    name='PloneorgReleasesecurityinfoLayer:FunctionalTesting'
+    name='PloneorgReleasesecurityinfoLayer:FunctionalTesting',
 )
 
 
@@ -43,7 +43,7 @@ PLONEORG_RELEASESECURITYINFO_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
         PLONEORG_RELEASESECURITYINFO_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE
+        z2.ZSERVER_FIXTURE,
     ),
-    name='PloneorgReleasesecurityinfoLayer:AcceptanceTesting'
+    name='PloneorgReleasesecurityinfoLayer:AcceptanceTesting',
 )
