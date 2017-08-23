@@ -119,5 +119,8 @@ def version_vocabulary(context):
                         title=release_title,
                         optgroup=series.title,
                     ))
-    versions = sorted(versions, key=lambda version: parse_version(version.value))
+    versions = sorted(
+        versions,
+        key=lambda version: parse_version(version.value),
+    )
     return SimpleVocabulary(versions)
