@@ -4,7 +4,7 @@
 from DateTime import DateTime
 from httplib2 import ServerNotFoundError
 from launchpadlib.launchpad import Launchpad
-# from pkg_resources import parse_version
+from pkg_resources import parse_version
 from plone import api
 from ploneorg.releasesecurityinfo.contents import ReleaseFolder
 from ploneorg.releasesecurityinfo.contents import ReleaseSeries
@@ -119,4 +119,8 @@ def version_vocabulary(context):
                         title=release_title,
                         optgroup=series.title,
                     ))
+    versions = sorted(
+        versions,
+        key=lambda version: parse_version(version.value),
+    )
     return SimpleVocabulary(versions)
