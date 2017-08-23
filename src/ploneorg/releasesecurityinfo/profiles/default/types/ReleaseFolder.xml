@@ -23,7 +23,7 @@
     <!-- <element value="" />-->
     <element value="HotfixFolder" />
     <element value="ReleaseSeries" />
-    <element value="Release" />
+    
   </property>
   <property name="filter_content_types">True</property>
   <property name="global_allow">True</property>

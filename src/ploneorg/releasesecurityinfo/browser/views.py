@@ -37,48 +37,30 @@ class HotfixListing(BrowserView):
 
         return sorted(brains, key=lambda hotfix: hotfix.id, reverse=True)
 
-    def get_versions(self):
+    def get_versions(self, context):
         versions = []
-
-        """
-        releaseseries = api.content.find(portal_type='ReleaseSeries')
-        for brain in releaseseries:
-            series = brain.getObject()
-            print series.title
-            versions.append(series)
-        """
-
-        releases = api.content.find(portal_type='Release')
-        for brain in releases:
-            release = brain.getObject()
-            versions.append(release)
-
-        security = []
-        security_brains = api.content.find(
-            portal_type='ReleaseSeries',
-            is_security_supported=True,
-        )
-        for brain in security_brains:
-            series = brain.getObject()
-            security.append(series.title)
-
-        maintenance = []
-        maintenance_brains = api.content.find(
-            portal_type='ReleaseSeries',
-            is_active_maintained=True,
-        )
-        for brain in maintenance_brains:
-            series = brain.getObject()
-            maintenance.append(series.title)
-
+        parent = context.aq_parent
+        while not isinstance(parent, ReleaseFolder):
+            parent = parent.aq_parent
+        
+        if isinstance(parent, ReleaseFolder):
+            for name, obj in parent.items():
+                if isinstance(obj, ReleaseSeries):
+                    series = obj
+                    for release_title, release in series.items():
+                        releaseinfo=(release, series.is_security_supported, 
+                                    series.is_active_maintained)
+                        versions.append(releaseinfo)
+        
+        
         result = []
         for v in sorted(versions, reverse=True):
-            version = v.title
+            version = v[0].title
             data = {
                 'name': version,
-                'date': v.releasedate,
-                'security': version in security,
-                'maintenance': version in maintenance,
+                'date': v[0].releasedate,
+                'security': v[1],
+                'maintenance': v[2],
             }
             result.append(data)
         return result
@@ -105,52 +87,33 @@ class HotfixJSONListing(HotfixListing):
         self.context = context
         self.request = request
 
-    def __call__(self):
+    def __call__(self, context):
         versions = []
-        """
-        releaseseries = api.content.find(portal_type='ReleaseSeries')
-        for brain in releaseseries:
-            series = brain.getObject()
-            print series.title
-            versions.append(series)
-        """
-        releases = api.content.find(portal_type='Release')
-        for brain in releases:
-            release = brain.getObject()
-            print release.title
-            versions.append(release)
-
-        security = []
-        security_brains = api.content.find(
-            portal_type='ReleaseSeries',
-            is_security_supported=True,
-        )
-        for brain in security_brains:
-            series = brain.getObject()
-            security.append(series.title)
-
-        maintenance = []
-        maintenance_brains = api.content.find(
-            portal_type='ReleaseSeries',
-            is_active_maintained=True,
-        )
-        for brain in maintenance_brains:
-            series = brain.getObject()
-            maintenance.append(series.title)
-
+        parent = context.aq_parent
+        while not isinstance(parent, ReleaseFolder):
+            parent = parent.aq_parent
+        
+        if isinstance(parent, ReleaseFolder):
+            for name, obj in parent.items():
+                if isinstance(obj, ReleaseSeries):
+                    series = obj
+                    for release_title, release in series.items():
+                        releaseinfo=(release, series.is_security_supported, 
+                                    series.is_active_maintained)
+                        versions.append(releaseinfo)
         result = []
 
         for v in sorted(versions, reverse=True):
-            version = v.title
+            version = v[0].title
             date_format = '%b %d, %Y'
             version_release_date = datetime.strptime(
-                v.releasedate, date_format).date()
+                v[0].releasedate, date_format).date()
 
             vdata = {
                 'name': version,
                 'date': version_release_date.isoformat(),
-                'security': version in security,
-                'maintenance': version in maintenance,
+                'security': v[1],
+                'maintenance': v[2],
                 'hotfixes': {
 
                 },
