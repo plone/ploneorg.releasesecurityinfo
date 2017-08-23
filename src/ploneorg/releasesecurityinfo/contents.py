@@ -61,17 +61,23 @@ class Hotfix(Container):
         # Hotfixes have their ID generated from their release date.
         return self.release_date.strftime('%Y%m%d')
 
+    @title.setter
+    def title(self, title):
+        # Don't allow anything to change the title. While a little
+        # crude, this prevents the rename page from setting a title
+        # on a hotfix which it's not possible to remove
+        return
+
+    @title.deleter
+    def title(self):
+        # Don't allow anything to delete the title.
+        return
+
     def released(self):
         workflowTool = api.portal.get_tool('portal_workflow')
         status = workflowTool.getStatusOf('hotfix_workflow', self)
         state = status['review_state']
         return state
-
-    def setTitle(self, title):
-        # Don't allow anything to change the title. While a little
-        # crude, this prevents the rename page from setting a title
-        # on a hotfix which it's not possible to remove
-        return
 
     def getAffectedVersions(self):
         """ Pull affected versions from the contained vulnerabilities."""
