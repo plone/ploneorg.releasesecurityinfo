@@ -5,15 +5,13 @@
       i18n:domain="ploneorg.releasesecurityinfo"
       metal:use-macro="context/main_template/macros/master">
 
-  
+
 
   <metal:block fill-slot="main">
 
     <h1>Hotfix folder Name</h1>
-    <div tal:content="context/hotfix_folder_name">Name of the Hotfix folder</div>
-    
+    <div tal:content="context/title">Name of the Hotfix folder</div>
+
   </metal:block>
 
 </html>
-
- 
