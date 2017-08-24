@@ -44,7 +44,7 @@ def update_releasefolder(context, logger):
             name = serie.name
             series_obj = None
             if name not in existing_series.keys():
-                log.info('Create new ReleaseSeries for %s', name)
+                logger.info('Create new ReleaseSeries for %s', name)
                 series_obj = api.content.create(
                     container=context,
                     type='ReleaseSeries',
@@ -70,7 +70,7 @@ def update_releasefolder(context, logger):
                 release_obj = None
                 for elem in serie.all_milestones:
                     if elem.name not in existing_releases.keys():
-                        log.info('Create new Release for %s', elem.name)
+                        logger.info('Create new Release for %s', elem.name)
                         release_obj = api.content.create(
                             container=series_obj,
                             type='Release',
@@ -87,11 +87,11 @@ def update_releasefolder(context, logger):
                         release_obj.active = elem.is_active
                         release_obj.releasedate = DateTime(elem.release.date_released)  # NOQA: E501
                         for f in elem.release.files:
-                            log.info(f)
+                            logger.info(f)
                             # link = f.self_link
 
     except ServerNotFoundError:
-        log.error('Connection Error')
+        logger.error('Connection Error')
 
 
 @provider(IVocabularyFactory, IContextSourceBinder)
@@ -118,4 +118,3 @@ def version_vocabulary(context):
         key=lambda version: parse_version(version.value),
     )
     return SimpleVocabulary(versions)
-

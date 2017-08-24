@@ -22,14 +22,14 @@ def cli_update(app, args):
     parser.add_argument(
         'context',
         help='Path to ReleaseFolder relative to Zope root.\
-              Ex:Plone/<ReleaseFolder name>'
+              Ex:Plone/<ReleaseFolder name>',
     )
     parser.add_argument(
         '-v',
         '--verbose',
         default=False,
         help='print more verbose output',
-        action='store_true'
+        action='store_true',
     )
     args = parser.parse_args()
     if args.verbose:
