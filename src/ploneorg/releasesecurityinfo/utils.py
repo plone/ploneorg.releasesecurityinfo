@@ -15,13 +15,8 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 
-import logging
 
-
-log = logging.getLogger('ploneorg.releasesecurityinfo')
-
-
-def update_releasefolder(context):
+def update_releasefolder(context, logger):
     try:
         launchpad = Launchpad.login_anonymously(
             'plone release crawler',
@@ -60,7 +55,7 @@ def update_releasefolder(context):
                 path = context.absolute_url() + '/' + name
                 series_obj = api.content.get(path=path)
                 series_obj = existing_series.get(name)
-                log.info('Update ReleaseSeries Information for %s', name)
+                logger.info('Update ReleaseSeries Information for %s', name)
 
             if series_obj is not None:
                 series_obj.title = name
@@ -85,13 +80,12 @@ def update_releasefolder(context):
                     else:
                         path = context.absolute_url() + '/' + name + '/' + elem.name  # NOQA: E501
                         release_obj = api.content.get(path=path)
-                        log.info('Update Release Information for %s', elem.name)  # NOQA: E501
+                        logger.info('Update Release Information for %s', elem.name)  # NOQA: E501
 
                     if release_obj is not None:
                         release_obj.code_name = elem.code_name
                         release_obj.active = elem.is_active
                         release_obj.releasedate = DateTime(elem.release.date_released)  # NOQA: E501
-
                         for f in elem.release.files:
                             log.info(f)
                             # link = f.self_link
@@ -124,3 +118,4 @@ def version_vocabulary(context):
         key=lambda version: parse_version(version.value),
     )
     return SimpleVocabulary(versions)
+

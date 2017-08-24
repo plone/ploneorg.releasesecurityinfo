@@ -62,5 +62,7 @@ setup(
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
+    [zopectl.command]
+    update_releasefolder = ploneorg.releasesecurityinfo.cli:cli_update
     """,
 )
