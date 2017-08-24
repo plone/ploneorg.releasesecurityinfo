@@ -3,6 +3,8 @@
 from datetime import datetime
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
+from ploneorg.releasesecurityinfo.contents import ReleaseFolder
+from ploneorg.releasesecurityinfo.contents import ReleaseSeries
 from ploneorg.releasesecurityinfo.interfaces import IHotfix
 from ploneorg.releasesecurityinfo.utils import update_releasefolder
 from Products.Five.browser import BrowserView
@@ -42,17 +44,14 @@ class HotfixListing(BrowserView):
         parent = context.aq_parent
         while not isinstance(parent, ReleaseFolder):
             parent = parent.aq_parent
-        
         if isinstance(parent, ReleaseFolder):
             for name, obj in parent.items():
                 if isinstance(obj, ReleaseSeries):
                     series = obj
                     for release_title, release in series.items():
-                        releaseinfo=(release, series.is_security_supported, 
-                                    series.is_active_maintained)
+                        releaseinfo = (release, series.is_security_supported,
+                                       series.is_active_maintained)
                         versions.append(releaseinfo)
-        
-        
         result = []
         for v in sorted(versions, reverse=True):
             version = v[0].title
@@ -92,17 +91,15 @@ class HotfixJSONListing(HotfixListing):
         parent = context.aq_parent
         while not isinstance(parent, ReleaseFolder):
             parent = parent.aq_parent
-        
         if isinstance(parent, ReleaseFolder):
             for name, obj in parent.items():
                 if isinstance(obj, ReleaseSeries):
                     series = obj
                     for release_title, release in series.items():
-                        releaseinfo=(release, series.is_security_supported, 
-                                    series.is_active_maintained)
+                        releaseinfo = (release, series.is_security_supported,
+                                       series.is_active_maintained)
                         versions.append(releaseinfo)
         result = []
-
         for v in sorted(versions, reverse=True):
             version = v[0].title
             date_format = '%b %d, %Y'
