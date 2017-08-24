@@ -86,9 +86,9 @@ class HotfixJSONListing(HotfixListing):
         self.context = context
         self.request = request
 
-    def __call__(self, context):
+    def __call__(self):
         versions = []
-        parent = context.aq_parent
+        parent = self.context.aq_parent
         while not isinstance(parent, ReleaseFolder):
             parent = parent.aq_parent
         if isinstance(parent, ReleaseFolder):
@@ -102,13 +102,11 @@ class HotfixJSONListing(HotfixListing):
         result = []
         for v in sorted(versions, reverse=True):
             version = v[0].title
-            date_format = '%b %d, %Y'
-            version_release_date = datetime.strptime(
-                v[0].releasedate, date_format).date()
+            version_release_date = v[0].releasedate
 
             vdata = {
                 'name': version,
-                'date': version_release_date.isoformat(),
+                'date': version_release_date.strftime('%Y-%m-%d'),
                 'security': v[1],
                 'maintenance': v[2],
                 'hotfixes': {
@@ -123,7 +121,7 @@ class HotfixJSONListing(HotfixListing):
                 fix_data = {
                     'name': fix.id,
                     'url': fix.absolute_url(),
-                    'release_date': fix.release_date.isoformat(),
+                    'release_date': fix.release_date.strftime('%Y-%m-%d'),
                 }
                 if fix.hotfix is not None:
                     fix_data['download_url'] = fix.absolute_url() + \
