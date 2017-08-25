@@ -116,5 +116,6 @@ def version_vocabulary(context):
     versions = sorted(
         versions,
         key=lambda version: parse_version(version.value),
+        reverse=True,
     )
     return SimpleVocabulary(versions)

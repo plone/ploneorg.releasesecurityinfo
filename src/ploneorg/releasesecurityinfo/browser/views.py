@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from pkg_resources import parse_version
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from ploneorg.releasesecurityinfo.contents import ReleaseFolder
@@ -48,11 +49,18 @@ class HotfixListing(BrowserView):
                 if isinstance(obj, ReleaseSeries):
                     series = obj
                     for release_title, release in series.items():
-                        releaseinfo = (release, series.is_security_supported,
-                                       series.is_active_maintained)
+                        releaseinfo = (
+                            release,
+                            series.is_security_supported,
+                            series.is_active_maintained,
+                        )
                         versions.append(releaseinfo)
         result = []
-        for v in sorted(versions, reverse=True):
+        for v in sorted(
+            versions,
+            key=lambda version: parse_version(version[0].title),
+            reverse=True,
+        ):
             version = v[0].title
             data = {
                 'name': version,
@@ -99,7 +107,11 @@ class HotfixJSONListing(HotfixListing):
                                        series.is_active_maintained)
                         versions.append(releaseinfo)
         result = []
-        for v in sorted(versions, reverse=True):
+        for v in sorted(
+            versions,
+            key=lambda version: parse_version(version[0].title),
+            reverse=True,
+        ):
             version = v[0].title
             version_release_date = v[0].releasedate
 
