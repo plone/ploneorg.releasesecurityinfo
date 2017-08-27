@@ -133,14 +133,9 @@ class HotfixJSONListing(HotfixListing):
                     'name': fix.id,
                     'url': fix.absolute_url(),
                     'release_date': fix.release_date.strftime('%Y-%m-%d'),
+                    'download_url': fix.absolute_url() + '/@@download/hotfix',
+                    'pypi_name': 'Products.PloneHotfix' + fix.id,
                 }
-                if fix.hotfix is not None:
-                    fix_data['download_url'] = fix.absolute_url() + \
-                        '/@@download/hotfix'
-                    fix_data['md5'] = fix.hotfix.md5
-                    fix_data['sha1'] = fix.hotfix.sha1
-                    fix_data['pypi_name'] = 'Products.PloneHotfix' + fix.id
-
                 applied_hotfixes.append(fix_data)
             vdata['hotfixes'] = applied_hotfixes
             result.append(vdata)
