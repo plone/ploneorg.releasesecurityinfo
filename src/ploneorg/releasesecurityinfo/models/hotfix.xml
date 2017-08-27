@@ -35,17 +35,15 @@
       </field>
 
       <fieldset name="preannounce"
-                label="preannounce"
-      >
+                label="preannounce">
 
-      <field name="preannounce_text"
-             type="plone.app.textfield.RichText">
-        <title i18n:translate="">Preannounce body</title>
-        <description i18n:translate="">This will be shown while the hotfix is in the preannounce state</description>
-        <required>False</required>
-      </field>
+        <field name="preannounce_text"
+               type="plone.app.textfield.RichText">
+          <title i18n:translate="">Preannounce body</title>
+          <description i18n:translate="">This will be shown while the hotfix is in the preannounce state</description>
+          <required>False</required>
+        </field>
 
-      
       </fieldset>
 
     </schema>

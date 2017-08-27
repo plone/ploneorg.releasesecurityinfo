@@ -35,13 +35,15 @@
 
   <!-- Enabled behaviors -->
   <property name="behaviors">
-    <element value="plone.app.content.interfaces.INameFromTitle" />
+   <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
+   <element value="plone.app.dexterity.behaviors.metadata.IPublication" />
+   <element value="plone.app.dexterity.behaviors.metadata.IOwnership" />
   </property>
 
   <!-- View information -->
   <property name="add_view_expr">string:${folder_url}/++add++Hotfix</property>
   <property name="immediate_view">view</property>
-  <property name="default_view">view</property>
+  <property name="default_view">base_view</property>
   <property name="default_view_fallback">False</property>
   <property name="view_methods">
     <element value="view" />

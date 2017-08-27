@@ -59,10 +59,21 @@
       component="ploneorg.releasesecurityinfo.vocabularies.AuthenticationVocabulary" />
 
   <utility
-        provides="zope.schema.interfaces.IVocabularyFactory"
-        component="ploneorg.releasesecurityinfo.vocabularies.plone_version_vocabulary"
-        name="ploneorg.releasesecurityinfo.ploneversions"
-   />
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="ploneorg.releasesecurityinfo.utils.version_vocabulary"
+      name="ploneorg.releasesecurityinfo.versions" />
+
+  <adapter
+      for="ploneorg.releasesecurityinfo.interfaces.IHotfix"
+      provides="ploneorg.releasesecurityinfo.interfaces.INameFromReleaseDate"
+      factory="ploneorg.releasesecurityinfo.contents.NameFromReleaseDate" />
+
+  <permission
+      id="ploneorg.releasesecurityinfo.hotfix.view_release"
+      title="Hotfix: View release" />
+
+  <permission
+      id="ploneorg.releasesecurityinfo.hotfix.view_preannounce"
+      title="Hotfix: View preannounce" />
 
 </configure>
-

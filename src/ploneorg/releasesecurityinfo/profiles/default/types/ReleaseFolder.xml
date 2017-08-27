@@ -21,8 +21,9 @@
   <!-- Hierarchy control -->
   <property name="allowed_content_types">
     <!-- <element value="" />-->
+    <element value="HotfixFolder" />
     <element value="ReleaseSeries" />
-    <element value="Release" />
+    
   </property>
   <property name="filter_content_types">True</property>
   <property name="global_allow">True</property>
@@ -44,7 +45,7 @@
   <!-- View information -->
   <property name="add_view_expr">string:${folder_url}/++add++ReleaseFolder</property>
   <property name="immediate_view">view</property>
-  <property name="default_view">view</property>
+  <property name="default_view">base_view</property>
   <property name="default_view_fallback">False</property>
   <property name="view_methods">
     <element value="view" />

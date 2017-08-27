@@ -2,6 +2,7 @@
 """Module where all interfaces, events and exceptions live."""
 
 from math import fabs
+from plone import api
 from plone.dexterity.content import Container
 from plone.dexterity.content import Item
 from ploneorg.releasesecurityinfo.interfaces import IHotfix
@@ -15,7 +16,6 @@ from ploneorg.releasesecurityinfo.vocabularies import AccessVectorVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import AuthenticationVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import ComplexityVocabulary
 from ploneorg.releasesecurityinfo.vocabularies import ImpactVocabulary
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implementer
 
 import pkg_resources
@@ -61,25 +61,31 @@ class Hotfix(Container):
         # Hotfixes have their ID generated from their release date.
         return self.release_date.strftime('%Y%m%d')
 
-    def released(self):
-        workflowTool = getToolByName(self, 'portal_workflow')
-        status = workflowTool.getStatusOf('hotfix_workflow', self)
-        state = status['review_state']
-        return state
-
-    def setTitle(self, title):
+    @title.setter
+    def title(self, title):
         # Don't allow anything to change the title. While a little
         # crude, this prevents the rename page from setting a title
         # on a hotfix which it's not possible to remove
         return
 
+    @title.deleter
+    def title(self):
+        # Don't allow anything to delete the title.
+        return
+
+    def released(self):
+        workflowTool = api.portal.get_tool('portal_workflow')
+        status = workflowTool.getStatusOf('hotfix_workflow', self)
+        state = status['review_state']
+        return state
+
     def getAffectedVersions(self):
         """ Pull affected versions from the contained vulnerabilities."""
 
-        catalog = getToolByName(self, 'portal_catalog')
-
-        brains = catalog(object_provides=IVulnerability.__identifier__,
-                         path={'query': '/'.join(self.getPhysicalPath())})
+        brains = api.content.find(
+            object_provides=IVulnerability.__identifier__,
+            path={'query': '/'.join(self.getPhysicalPath())},
+        )
 
         result = []
         for brain in brains:

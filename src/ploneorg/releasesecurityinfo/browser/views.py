@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from Acquisition import aq_inner
-from datetime import datetime
+from pkg_resources import parse_version
+from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
-from plone.registry.interfaces import IRegistry
+from ploneorg.releasesecurityinfo.contents import ReleaseFolder
+from ploneorg.releasesecurityinfo.contents import ReleaseSeries
 from ploneorg.releasesecurityinfo.interfaces import IHotfix
 from ploneorg.releasesecurityinfo.utils import update_releasefolder
 from Products.Five.browser import BrowserView
-from zope.component import getMultiAdapter
-from zope.component import getUtility
 from zope.interface import alsoProvides
 
 import json
@@ -36,27 +35,38 @@ class HotfixListing(BrowserView):
     """
 
     def get_hotfixes(self):
-        context = aq_inner(self.context)
-        tools = getMultiAdapter((context, self.request), name=u'plone_tools')
-
-        portal_catalog = tools.catalog()
-        brains = portal_catalog(object_provides=IHotfix.__identifier__)
+        brains = api.content.find(object_provides=IHotfix.__identifier__)
 
         return sorted(brains, key=lambda hotfix: hotfix.id, reverse=True)
 
-    def get_versions(self):
-        registry = getUtility(IRegistry)
-        versions = registry['plone.versions']
-        security = registry['plone.securitysupport']
-        maintenance = registry['plone.activemaintenance']
+    def get_versions(self, context):
+        versions = []
+        parent = context.aq_parent
+        while not isinstance(parent, ReleaseFolder):
+            parent = parent.aq_parent
+        if isinstance(parent, ReleaseFolder):
+            for name, obj in parent.items():
+                if isinstance(obj, ReleaseSeries):
+                    series = obj
+                    for release_title, release in series.items():
+                        releaseinfo = (
+                            release,
+                            series.is_security_supported,
+                            series.is_active_maintained,
+                        )
+                        versions.append(releaseinfo)
         result = []
-        for v in sorted(versions, reverse=True):
-            version = v.split('-')[0]
+        for v in sorted(
+            versions,
+            key=lambda version: parse_version(version[0].title),
+            reverse=True,
+        ):
+            version = v[0].title
             data = {
                 'name': version,
-                'date': v.split('-')[1],
-                'security': version in security,
-                'maintenance': version in maintenance
+                'date': v[0].releasedate,
+                'security': v[1],
+                'maintenance': v[2],
             }
             result.append(data)
         return result
@@ -64,11 +74,7 @@ class HotfixListing(BrowserView):
     def get_hotfixes_for_version(self, version):
         # get all hotfixes
         result = []
-        context = aq_inner(self.context)
-        tools = getMultiAdapter((context, self.request), name=u'plone_tools')
-
-        portal_catalog = tools.catalog()
-        brains = portal_catalog(object_provides=IHotfix.__identifier__)
+        brains = api.content.find(object_provides=IHotfix.__identifier__)
 
         for brain in brains:
             if version in brain.getObject().getAffectedVersions():
@@ -88,26 +94,35 @@ class HotfixJSONListing(HotfixListing):
         self.request = request
 
     def __call__(self):
-        registry = getUtility(IRegistry)
-        versions = registry['plone.versions']
-        security = registry['plone.securitysupport']
-        maintenance = registry['plone.activemaintenance']
+        versions = []
+        parent = self.context.aq_parent
+        while not isinstance(parent, ReleaseFolder):
+            parent = parent.aq_parent
+        if isinstance(parent, ReleaseFolder):
+            for name, obj in parent.items():
+                if isinstance(obj, ReleaseSeries):
+                    series = obj
+                    for release_title, release in series.items():
+                        releaseinfo = (release, series.is_security_supported,
+                                       series.is_active_maintained)
+                        versions.append(releaseinfo)
         result = []
-
-        for v in sorted(versions, reverse=True):
-            version = v.split('-')[0]
-            date_format = '%b %d, %Y'
-            plone_version_release_date = datetime.strptime(
-                v.split('-')[1], date_format).date()
+        for v in sorted(
+            versions,
+            key=lambda version: parse_version(version[0].title),
+            reverse=True,
+        ):
+            version = v[0].title
+            version_release_date = v[0].releasedate
 
             vdata = {
                 'name': version,
-                'date': plone_version_release_date.isoformat(),
-                'security': version in security,
-                'maintenance': version in maintenance,
+                'date': version_release_date.strftime('%Y-%m-%d'),
+                'security': v[1],
+                'maintenance': v[2],
                 'hotfixes': {
 
-                }
+                },
             }
 
             applied_hotfixes = []
@@ -117,15 +132,10 @@ class HotfixJSONListing(HotfixListing):
                 fix_data = {
                     'name': fix.id,
                     'url': fix.absolute_url(),
-                    'release_date': fix.release_date.isoformat(),
+                    'release_date': fix.release_date.strftime('%Y-%m-%d'),
+                    'download_url': fix.absolute_url() + '/@@download/hotfix',
+                    'pypi_name': 'Products.PloneHotfix' + fix.id,
                 }
-                if fix.hotfix is not None:
-                    fix_data['download_url'] = fix.absolute_url() + \
-                        '/@@download/hotfix'
-                    fix_data['md5'] = fix.hotfix.md5
-                    fix_data['sha1'] = fix.hotfix.sha1
-                    fix_data['pypi_name'] = 'Products.PloneHotfix' + fix.id
-
                 applied_hotfixes.append(fix_data)
             vdata['hotfixes'] = applied_hotfixes
             result.append(vdata)

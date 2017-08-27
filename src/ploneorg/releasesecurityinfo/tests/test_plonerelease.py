@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from plone import api
+from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
 from ploneorg.releasesecurityinfo.interfaces import IRelease
-from ploneorg.releasesecurityinfo.testing import PLONEORG_RELEASESECURITYINFO_INTEGRATION_TESTING  # noqa
+from ploneorg.releasesecurityinfo.testing import PLONEORG_RELEASESECURITYINFO_INTEGRATION_TESTING  # NOQA: E501
 from zope.component import createObject
 from zope.component import queryUtility
 
@@ -39,6 +40,15 @@ class PloneReleaseIntegrationTest(unittest.TestCase):
         self.assertTrue(IRelease.providedBy(obj))
 
     def test_adding(self):  # Not globally allowed
-        with self.assertRaises(ValueError,
-                               message='Disallowed subobject type: Release'):
-            self.portal.invokeFactory('Release', 'Release')
+        self.portal = api.portal.get()
+        # with self.assertRaises(ValueError,
+        #                        message='Disallowed subobject type: Release'):
+        with self.assertRaises(
+            InvalidParameterError,
+            message="Cannot add a 'Release' object to the container.",
+        ):
+            api.content.create(
+                container=self.portal,
+                type='Release',
+                title='Future',
+            )

@@ -22,7 +22,7 @@ def test_suite():
         suite.addTests([
             layered(
                 robottestsuite,
-                layer=PLONEORG_RELEASESECURITYINFO_ACCEPTANCE_TESTING
+                layer=PLONEORG_RELEASESECURITYINFO_ACCEPTANCE_TESTING,
             ),
         ])
     return suite
