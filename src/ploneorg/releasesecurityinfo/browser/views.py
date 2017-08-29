@@ -11,13 +11,18 @@ from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
 import json
+import logging
+
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger('ploneorg.releasesecurityinfo')
 
 
 class ReleaseFolderUpdateView(BrowserView):
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
-        update_releasefolder(self.context)
+        update_releasefolder(self.context, logger=log)
         self.request.response.redirect(self.context.absolute_url())
 
 
