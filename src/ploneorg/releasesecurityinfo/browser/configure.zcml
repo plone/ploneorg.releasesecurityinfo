@@ -67,12 +67,12 @@
       name="update"
       for="ploneorg.releasesecurityinfo.interfaces.IReleaseFolder"
       permission="zope2.View"
-      class="ploneorg.releasesecurityinfo.browser.views.ReleaseFolderUpdateView"
+      class="ploneorg.releasesecurityinfo.browser.update_views.ReleaseFolderUpdateView"
       />
 
   <browser:page
       name="hotfix_json"
-      class="ploneorg.releasesecurityinfo.browser.views.HotfixJSONListing"
+      class="ploneorg.releasesecurityinfo.browser.hotfix_views.HotfixJSONListing"
       for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
       permission="zope2.View"
       />
