@@ -19,7 +19,50 @@
       directory="static"
       />
 
+  <!-- Basic Browser Views for Content-Types -->
+  <browser:page
+      name="base_view"
+      for="ploneorg.releasesecurityinfo.interfaces.IRelease"
+      template="templates/release.pt"
+      permission="zope2.View"
+      />
 
+  <browser:page
+      name="base_view"
+      for="ploneorg.releasesecurityinfo.interfaces.IReleaseFolder"
+      template="templates/releasefolder.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="base_view"
+      for="ploneorg.releasesecurityinfo.interfaces.IReleaseSeries"
+      template="templates/releaseseries.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="base_view"
+      for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
+      template="templates/hotfixfolder.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="base_view"
+      for="ploneorg.releasesecurityinfo.interfaces.IHotfix"
+      template="templates/hotfix.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="base_view"
+      for="ploneorg.releasesecurityinfo.interfaces.IVulnerability"
+      template="templates/vulnerability.pt"
+      permission="zope2.View"
+      />
+
+  <!-- Special Views -->
   <browser:page
       name="update"
       for="ploneorg.releasesecurityinfo.interfaces.IReleaseFolder"
@@ -28,52 +71,10 @@
       />
 
   <browser:page
-        name="base_view"
-        for="ploneorg.releasesecurityinfo.interfaces.IRelease"
-        template="templates/release.pt"
-        permission="zope2.View"
-        />
+      name="hotfix_json"
+      class="ploneorg.releasesecurityinfo.browser.views.HotfixJSONListing"
+      for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
+      permission="zope2.View"
+      />
 
-  <browser:page
-        name="base_view"
-        for="ploneorg.releasesecurityinfo.interfaces.IReleaseFolder"
-        template="templates/releasefolder.pt"
-        permission="zope2.View"
-        />
-
-  <browser:page
-        name="base_view"
-        for="ploneorg.releasesecurityinfo.interfaces.IReleaseSeries"
-        template="templates/releaseseries.pt"
-        permission="zope2.View"
-        />
-
-  <browser:page
-        name="base_view"
-        for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
-        template="templates/hotfixfolder.pt"
-        permission="zope2.View"
-        />
-
-  <browser:page
-        name="base_view"
-        for="ploneorg.releasesecurityinfo.interfaces.IHotfix"
-        template="templates/hotfix.pt"
-        permission="zope2.View"
-        />
-
-  <browser:page
-        name="base_view"
-        for="ploneorg.releasesecurityinfo.interfaces.IVulnerability"
-        template="templates/vulnerability.pt"
-        permission="zope2.View"
-        />
-
-   <browser:page
-    name="hotfix_json"
-    class="ploneorg.releasesecurityinfo.browser.views.HotfixJSONListing"
-    for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
-    permission="zope2.View"
-    />
-  
 </configure>
