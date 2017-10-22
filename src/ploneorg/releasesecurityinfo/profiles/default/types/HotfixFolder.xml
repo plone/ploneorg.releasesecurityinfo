@@ -41,10 +41,12 @@
   <!-- View information -->
   <property name="add_view_expr">string:${folder_url}/++add++HotfixFolder</property>
   <property name="immediate_view">view</property>
-  <property name="default_view">base_view</property>
+  <property name="default_view">accordion_view</property>
   <property name="default_view_fallback">False</property>
   <property name="view_methods">
     <element value="view" />
+    <element value="table_view" />
+    <element value="accordion_view" />
   </property>
 
   <!-- Method aliases -->

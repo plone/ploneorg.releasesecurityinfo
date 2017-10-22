@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ploneorg.releasesecurityinfo"
+      metal:use-macro="context/main_template/macros/master">
+
+
+
+  <metal:block fill-slot="main" >
+
+    <h1 tal:content="context/title">HotfixFolder Name</h1>
+    <div tal:content="context/description">Description of HotfixFolder</div>
+
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card">
+        <div class="card-header" role="tab" id="masterHeading">
+          <div class="series-col">
+            <strong i18n:translate="">Plone Series</strong>
+          </div>
+          <div class="security-col">
+            <strong i18n:translate="">Security Support</strong>
+          </div>
+          <div class="maintenance-col">
+            <strong i18n:translate="">Active Maintenance support / Development</strong>
+          </div>
+        </div>
+      </div>
+      <div class="card"
+           tal:define="versions python:view.get_versions(context)"
+           tal:repeat="version versions"
+           tal:attributes="class python: 'supported_version' if version['security'] else 'not_supported_version';">
+        <div class="card-header" role="tab"
+             tal:attributes="id string:heading${repeat['version'].number};"
+             tal:on-error="python: repeat">
+          <div class="series-col">
+            <a data-toggle="collapse"
+               data-parent="#accordion"
+               href="#collapseOne"
+               aria-expanded="true"
+               aria-controls="collapseOne"
+               tal:attributes="href string:#collapse${repeat['version'].number};
+                               aria-control string:collapse${repeat['version'].number};"
+               tal:content="version/series">
+              Series
+            </a>
+          </div>
+          <div class="security-col">
+
+          </div>
+          <div class="maintenance-col">
+
+          </div>
+        </div>
+
+        <div tal:attributes="id string:#collapse${repeat['version'].number};
+                             aria-labelledby string:heading${repeat['version'].number};"
+             tal:on-error="python: repeat"
+             class="collapse show" role="tabpanel">
+          <div class="card-block">
+
+                <table id="hotfixes" class="listing">
+                  <thead>
+                    <tr>
+                      <th i18n:translate="">Plone Version</th>
+                      <th i18n:translate="">Release Date</th>
+                      <th i18n:translate="">Hotfixes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr tal:define="versions python:view.get_versions(context)"
+                        tal:repeat="version versions"
+                        tal:attributes="class python: 'supported_version' if version['security'] else 'not_supported_version';">
+                      <th tal:content="version/name">Name</th>
+                      <td tal:content="python:here.toLocalizedTime(version['date'])">Date</td>
+                      <td tal:define="hotfixes python:view.get_hotfixes_for_version(version['name'])">
+                        <ol tal:condition="hotfixes">
+                          <li tal:repeat="hotfix hotfixes">
+                            <a tal:content="hotfix/id"
+                               tal:attributes="href hotfix/absolute_url;">Hotfix
+                            </a>
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </metal:block>
+
+</html>

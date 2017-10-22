@@ -42,10 +42,18 @@
       />
 
   <browser:page
-      name="base_view"
+      name="table_view"
       class="ploneorg.releasesecurityinfo.browser.hotfix_views.HotfixListing"
       for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
-      template="templates/hotfixfolder.pt"
+      template="templates/hotfixfolder_table.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="accordion_view"
+      class="ploneorg.releasesecurityinfo.browser.hotfix_views.HotfixListing"
+      for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
+      template="templates/hotfixfolder_accordion.pt"
       permission="zope2.View"
       />
 
