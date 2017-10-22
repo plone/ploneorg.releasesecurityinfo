@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ploneorg.releasesecurityinfo"
+      metal:use-macro="context/main_template/macros/master">
+
+
+
+  <metal:block fill-slot="main">
+
+    <h1 tal:content="context/title">HotfixFolder Name</h1>
+    <div tal:content="context/description">Description of HotfixFolder</div>
+
+    <table id="hotfixes" class="listing">
+      <thead>
+        <tr>
+          <th i18n:translate="">Plone Series</th>
+          <th i18n:translate="">Plone Version</th>
+          <th i18n:translate="">Release Date</th>
+          <th i18n:translate="">Security Support</th>
+          <th i18n:translate="">Active Maintenance Support</th>
+          <th i18n:translate="">Hotfixes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tal:define="versions python:view.get_versions(context)"
+            tal:repeat="version versions"
+            tal:attributes="class python: 'supported_version' if version['security'] else 'not_supported_version';">
+          <th tal:content="version/series">Series</th>
+          <th tal:content="version/name">Name</th>
+          <td tal:content="python:here.toLocalizedTime(version['date'])">Date</td>
+          <td tal:attributes="class python: 'good' if version['security'] else 'bad';">
+            <span tal:condition="version/security"><i class="" i18n:translate="">supported</span>
+            <span tal:condition="not: version/security"><i class="" i18n:translate="">not supported</span>
+          </td>
+          <td tal:attributes="class python: 'good' if version['maintenance'] else 'bad';">
+            <span tal:condition="version/maintenance"><i class="" i18n:translate="">maintained</span>
+            <span tal:condition="not: version/maintenance"><i class="" i18n:translate="">not maintained</span>
+          </td>
+          <td tal:define="hotfixes python:view.get_hotfixes_for_version(version['name'])">
+            <ol tal:condition="hotfixes">
+              <li tal:repeat="hotfix hotfixes">
+                <a tal:content="hotfix/id"
+                   tal:attributes="href hotfix/absolute_url;">Hotfix
+                </a>
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </metal:block>
+
+</html>
