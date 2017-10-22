@@ -34,7 +34,7 @@ class ReleaseSeries(Container):
 @implementer(IRelease)
 class Release(Item):
 
-    def get_series():
+    def get_series(self):
         return self.aq_parent()
 
 

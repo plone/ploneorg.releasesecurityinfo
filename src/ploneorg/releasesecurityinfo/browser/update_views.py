@@ -8,6 +8,7 @@ from zope.interface import alsoProvides
 
 import logging
 
+
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger('ploneorg.releasesecurityinfo')
 
