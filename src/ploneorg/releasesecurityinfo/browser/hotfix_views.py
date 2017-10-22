@@ -30,7 +30,6 @@ class HotfixListing(BrowserView):
 
     def get_hotfixes(self):
         brains = api.content.find(object_provides=IHotfix.__identifier__)
-
         return sorted(brains, key=lambda hotfix: hotfix.id, reverse=True)
 
     def get_versions(self, context):
@@ -45,6 +44,7 @@ class HotfixListing(BrowserView):
                     for release_title, release in series.items():
                         releaseinfo = (
                             release,
+                            series,
                             series.is_security_supported,
                             series.is_active_maintained,
                         )
@@ -58,9 +58,10 @@ class HotfixListing(BrowserView):
             version = v[0].title
             data = {
                 'name': version,
+                'series': v[1].title,
                 'date': v[0].releasedate,
-                'security': v[1],
-                'maintenance': v[2],
+                'security': v[2],
+                'maintenance': v[3],
             }
             result.append(data)
         return result

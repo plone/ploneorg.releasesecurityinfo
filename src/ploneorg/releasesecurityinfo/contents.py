@@ -33,7 +33,9 @@ class ReleaseSeries(Container):
 
 @implementer(IRelease)
 class Release(Item):
-    pass
+
+    def get_series():
+        return self.aq_parent()
 
 
 @implementer(IHotfixFolder)

@@ -43,6 +43,7 @@
 
   <browser:page
       name="base_view"
+      class="ploneorg.releasesecurityinfo.browser.hotfix_views.HotfixListing"
       for="ploneorg.releasesecurityinfo.interfaces.IHotfixFolder"
       template="templates/hotfixfolder.pt"
       permission="zope2.View"
