@@ -66,6 +66,31 @@ class HotfixListing(BrowserView):
             result.append(data)
         return result
 
+    def get_series(self, context):
+        results = []
+        parent = context.aq_parent
+        while not isinstance(parent, ReleaseFolder):
+            parent = parent.aq_parent
+        if isinstance(parent, ReleaseFolder):
+            for name, obj in parent.items():
+                if isinstance(obj, ReleaseSeries):
+                    results.append(obj)
+        results.sort(
+            key=lambda serie: parse_version(serie.title),
+            reverse=True
+        )
+        return results
+
+    def get_releases_for_serie(self, serie):
+        results = []
+        for release_title, release in serie.items():
+            results.append(release)
+        results.sort(
+            key=lambda release: parse_version(release.title),
+            reverse=True
+        )
+        return results
+
     def get_hotfixes_for_version(self, version):
         # get all hotfixes
         result = []

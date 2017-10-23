@@ -1,0 +1,41 @@
+.card {
+}
+
+.card div.card-header {
+  display: table-row;
+  width: 100%;
+}
+
+.card div.series-col,
+.card div.security-col,
+.card div.maintenance-col {
+  display: table-cell;
+  border: 2px solid #D0D0D0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  padding: 2px 5px;
+}
+
+.card div.series-col {
+  width: 25%;
+}
+
+.card div.security-col,
+.card div.maintenance-col {
+  width: 35%;
+}
+
+.card div.security-col.good,
+.card div.maintenance-col.good {
+  background-color: #DFF0D8;
+}
+
+.card div.security-col.bad,
+.card div.maintenance-col.bad {
+  background-color: #F2DEDE;
+}
+
+.card-block {
+  padding-left: 3em;
+}

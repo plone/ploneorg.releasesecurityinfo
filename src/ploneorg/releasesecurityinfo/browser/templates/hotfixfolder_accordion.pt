@@ -27,38 +27,37 @@
         </div>
       </div>
       <div class="card"
-           tal:define="versions python:view.get_versions(context)"
-           tal:repeat="version versions"
-           tal:attributes="class python: 'supported_version' if version['security'] else 'not_supported_version';">
+           tal:define="series python:view.get_series(context)"
+           tal:repeat="serie series"
+           tal:attributes="class python: 'card supported_version' if serie.is_security_supported else 'card not_supported_version';">
         <div class="card-header" role="tab"
-             tal:attributes="id string:heading${repeat['version'].number};"
-             tal:on-error="python: repeat">
+             tal:attributes="id string:heading${repeat/serie/number};">
           <div class="series-col">
             <a data-toggle="collapse"
                data-parent="#accordion"
                href="#collapseOne"
                aria-expanded="true"
                aria-controls="collapseOne"
-               tal:attributes="href string:#collapse${repeat['version'].number};
-                               aria-control string:collapse${repeat['version'].number};"
-               tal:content="version/series">
+               tal:attributes="href string:#collapse${repeat/serie/number};
+                               aria-controls string:collapse${repeat/serie/number};"
+               tal:content="serie/id">
               Series
             </a>
           </div>
-          <div class="security-col">
-
+          <div tal:attributes="class python: 'security-col good' if serie.is_security_supported else 'security-col bad';">
+            <tal:elem tal:condition="serie/is_security_supported"><i class="" i18n:translate="">supported</tal:elem>
+            <tal:elem tal:condition="not: serie/is_security_supported"><i class="" i18n:translate="">not supported</tal:elem>
           </div>
-          <div class="maintenance-col">
-
+          <div tal:attributes="class python: 'maintenance-col good' if serie.is_active_maintained else 'maintenance-col bad';">
+            <tal:elem tal:condition="serie/is_active_maintained"><i class="" i18n:translate="">maintained</tal:elem>
+            <tal:elem tal:condition="not: serie/is_active_maintained"><i class="" i18n:translate="">not maintained</tal:elem>
           </div>
         </div>
 
-        <div tal:attributes="id string:#collapse${repeat['version'].number};
-                             aria-labelledby string:heading${repeat['version'].number};"
-             tal:on-error="python: repeat"
+        <div tal:attributes="id string:#collapse${repeat/serie/number};
+                             aria-labelledby string:heading${repeat/serie/number};"
              class="collapse show" role="tabpanel">
           <div class="card-block">
-
                 <table id="hotfixes" class="listing">
                   <thead>
                     <tr>
@@ -68,12 +67,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr tal:define="versions python:view.get_versions(context)"
+                    <tr tal:define="versions python:view.get_releases_for_serie(serie)"
                         tal:repeat="version versions"
-                        tal:attributes="class python: 'supported_version' if version['security'] else 'not_supported_version';">
-                      <th tal:content="version/name">Name</th>
-                      <td tal:content="python:here.toLocalizedTime(version['date'])">Date</td>
-                      <td tal:define="hotfixes python:view.get_hotfixes_for_version(version['name'])">
+                        tal:attributes="class python: 'supported_version' if serie.is_security_supported else 'not_supported_version';">
+                      <th tal:content="version/title">Name</th>
+                      <td tal:content="python:here.toLocalizedTime(version.releasedate)">Date</td>
+                      <td tal:define="hotfixes python:view.get_hotfixes_for_version(version.title)">
                         <ol tal:condition="hotfixes">
                           <li tal:repeat="hotfix hotfixes">
                             <a tal:content="hotfix/id"
@@ -85,9 +84,10 @@
                     </tr>
                   </tbody>
                 </table>
-
           </div>
         </div>
+
+
       </div>
     </div>
 
