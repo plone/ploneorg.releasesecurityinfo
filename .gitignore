@@ -42,3 +42,5 @@ share/
 coverage.xml
 !.coveragerc
 reports/
+.ropeproject/
+.python-version
