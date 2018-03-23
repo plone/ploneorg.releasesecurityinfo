@@ -42,7 +42,8 @@ share/
 coverage.xml
 !.coveragerc
 reports/
-
 /src/*
 /src/ploneorg/*
 !/src/ploneorg/releasesecurityinfo
+.ropeproject/
+.python-version
