@@ -31,7 +31,8 @@ contributor_data/
 include/
 lib/
 local/
-build
+build/
+_build/
 cache
 .codeintel
 contributions.cfg
@@ -47,3 +48,5 @@ reports/
 !/src/ploneorg/releasesecurityinfo
 .ropeproject/
 .python-version
+src/*
+!src/ploneorg.releasesecurityinfo
