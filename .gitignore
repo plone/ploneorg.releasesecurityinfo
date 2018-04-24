@@ -1,6 +1,3 @@
-/src/*
-/src/ploneorg/*
-!/src/ploneorg/releasesecurityinfo
 .pip-selfcheck.json
 pip-selfcheck.json
 .Python
