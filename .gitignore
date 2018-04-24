@@ -32,6 +32,7 @@ contributor_data/
 /local/
 /build/
 /_build/
+/src-mrd/
 cache
 .codeintel
 contributions.cfg
